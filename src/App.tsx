@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Button, Space, Row, Col } from "antd";
 import "./App.css";
 import styled from "styled-components";
-import { Card } from "./components/UI/Card";
+import { Card, Span, randomColor } from "./components/UI/Card";
 
 const MyButton = styled.button`
   background-color: ${(props: { bgc?: string }) => props.bgc || "#51f"};
@@ -46,18 +46,18 @@ const App: FC = () => {
         }}
       >
         <Row style={border}>
-          <Col style={border} flex={1} span={6}></Col>
+          <Col style={border} flex={1} span={6} />
           <Col style={border} span={6}>
             <Space>
               <Button type="primary">Button</Button>
               <MyButton>MyButton</MyButton>
             </Space>
           </Col>
-          <Col style={border} span={12}></Col>
+          <Col style={border} span={12} />
         </Row>
         <Row style={border}>
-          <Col style={border} flex={1}></Col>
-          <Col style={border} flex={2}></Col>
+          <Col style={border} flex={1} />
+          <Col style={border} flex={2} />
         </Row>
         <Space
           style={{
@@ -66,16 +66,30 @@ const App: FC = () => {
             overflowX: "scroll",
           }}
         >
-          <AntDButton>AntDButton</AntDButton>
+          <AntDButton type="primary">AntDButton</AntDButton>
           <Input />
           <PassWorldInput />
         </Space>
         <Space>
           <Card bgc="orange">
-            <span>orange</span>
+            <Span bold color="#FFF" shadow capitalize>
+              orange
+            </Span>
+            <Span bold color={randomColor()} shadow capitalize>
+              {randomColor()}
+            </Span>
+            <Span bold color={randomColor()} shadow capitalize>
+              {randomColor()}
+            </Span>
           </Card>
           <Card bgc="blue">
             <span>blue</span>
+          </Card>
+          <Card>
+            <span>primary</span>
+          </Card>
+          <Card as="a" href="http://hongbin.xyz" bgc="black">
+            <span>Link</span>
           </Card>
         </Space>
       </Space>
