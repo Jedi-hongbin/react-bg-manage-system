@@ -1,77 +1,22 @@
 import React, { useCallback, useRef, useState } from "react";
-import styled, { keyframes } from "styled-components";
-import bgImage from "../../assets/image/33823326832_059359647d_k.jpg";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Button, Input as AntdInput, message, Space } from "antd";
-
-const Wrapper = styled.div`
-  width: 100vw;
-  height: 100vh;
-  background: url(${bgImage}) no-repeat center center;
-`;
-
-const DebutAnimation = keyframes`
-  0% {
-    transform: translateX(100%);
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
-`;
-
-const LoginContainer = styled.div`
-  margin-left: auto;
-  width: 350px;
-  background-color: rgba(255, 255, 255, 0.4);
-  height: 100%;
-  padding: 1rem;
-  animation: ${DebutAnimation} 0.6s ease-out;
-`;
-
-const MySpace = styled(Space)`
-  height: 100%;
-  width: 100%;
-`;
-
-const Title = styled.span`
-  font-size: 2rem;
-  font-weight: bold;
-  color: #fff;
-`;
-
-const Input = styled(AntdInput).attrs({ placeholder: " username" })`
-  height: 40px;
-`;
-
-const PasswordInput = styled(AntdInput.Password).attrs({
-  placeholder: " password",
-})`
-  height: 40px;
-`;
-
-const LoginButton = styled(Button).attrs({
-  type: "primary",
-  children: "Login",
-})`
-  width: 100%;
-  font-weight: bold;
-`;
-
-const RegisterButton = styled(Button).attrs({
-  type: "link",
-  children: "Register",
-})`
-  font-weight: bold;
-  display: inline-block;
-  margin-left: 240px;
-`;
+import { Input as AntdInput, notification } from "antd";
+import { useHistory } from "react-router-dom";
+import {
+  LoginButton,
+  LoginContainer,
+  MySpace,
+  PasswordInput,
+  RegisterButton,
+  Title,
+  Wrapper,
+  Input,
+} from "./styled";
 
 interface Props {}
 
 const Login: React.FC<Props> = () => {
+  const { replace } = useHistory();
   const [loading, setLoading] = useState(false);
   const username = useRef<AntdInput>(null);
   const password = useRef<AntdInput>(null);
@@ -92,14 +37,14 @@ const Login: React.FC<Props> = () => {
     });
     setTimeout(() => {
       setLoading(false);
-      message
-        .success({
-          content: `${Username} login success!`,
-          duration: 1,
-        })
-        .then((r) => null);
+      notification.success({
+        message: `Hello ${Username}`,
+        description: "Login success!",
+        duration: 2,
+      });
+      replace("dashboard");
     }, 2000);
-  }, [loading]);
+  }, [loading, replace]);
 
   console.log("render");
   return (

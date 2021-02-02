@@ -1,8 +1,15 @@
-import { css } from "styled-components";
+import styled, { css } from "styled-components";
+import { Button as AntDButton } from "antd";
 
 export const flexCenter = css`
   display: flex;
   justify-content: center;
+  align-items: center;
+`;
+
+export const BetweenCenter = css`
+  display: flex;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -22,3 +29,5 @@ export const Lowercase = css`
 export const textShadow = css`
   text-shadow: 0px 0px 3px #000;
 `;
+
+export const Button = styled(AntDButton)``;

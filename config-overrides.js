@@ -22,9 +22,11 @@ module.exports = override(
     // @blue-base: #1890ff;
     // @blue-6: @blue-base;
     // @primary-color: @blue-6;
-    javascriptEnabled: true,
-    modifyVars: {
-      "@primary-color": "#51f",
+    lessOptions: {
+      javascriptEnabled: true,
+      modifyVars: {
+        "@primary-color": "#51f",
+      },
     },
   })
 );

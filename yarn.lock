@@ -3483,11 +3483,6 @@ clone-deep@^4.0.1:
     kind-of "^6.0.2"
     shallow-clone "^3.0.0"
 
-clone@^2.1.1:
-  version "2.1.2"
-  resolved "https://registry.npm.taobao.org/clone/download/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
-  integrity sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
-
 co@^4.6.0:
   version "4.6.0"
   resolved "https://registry.npm.taobao.org/co/download/co-4.6.0.tgz?cache=0&sync_timestamp=1607998649601&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fco%2Fdownload%2Fco-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
@@ -7125,6 +7120,11 @@ kleur@^3.0.3:
   resolved "https://registry.npm.taobao.org/kleur/download/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha1-p5yezIbuHOP6YgbRIWxQHxR/wH4=
 
+klona@^2.0.3:
+  version "2.0.4"
+  resolved "https://registry.npmjs.org/klona/-/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
+  integrity sha512-ZRbnvdg/NxqzC7L9Uyqzf4psi1OM4Cuc+sJAkQPjO6XkQIJTNbfK2Rsmbw8fx1p2mkZdp2FZYo2+LwXYY/uwIA==
+
 language-subtag-registry@~0.3.2:
   version "0.3.21"
   resolved "https://registry.npm.taobao.org/language-subtag-registry/download/language-subtag-registry-0.3.21.tgz?cache=0&sync_timestamp=1603782998188&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Flanguage-subtag-registry%2Fdownload%2Flanguage-subtag-registry-0.3.21.tgz#04ac218bea46f04cb039084602c6da9e788dd45a"
@@ -7145,14 +7145,14 @@ last-call-webpack-plugin@^3.0.0:
     lodash "^4.17.5"
     webpack-sources "^1.1.0"
 
-less-loader@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.npm.taobao.org/less-loader/download/less-loader-5.0.0.tgz?cache=0&sync_timestamp=1611232407898&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fless-loader%2Fdownload%2Fless-loader-5.0.0.tgz#498dde3a6c6c4f887458ee9ed3f086a12ad1b466"
-  integrity sha1-SY3eOmxsT4h0WO6e0/CGoSrRtGY=
+less-loader@7.0.0:
+  version "7.0.0"
+  resolved "https://registry.npmjs.org/less-loader/-/less-loader-7.0.0.tgz#d2a66f4fbbb4911e587f691579ee0ae79e21cfe5"
+  integrity sha512-fAgAaZHQJdX/woSMyNhvJt6bQUhpOtKODfuhk5AqgVPo6FVD3PezwHIZEtNPr4aumYoNQ1KBLnhynGX2XE/Lrg==
   dependencies:
-    clone "^2.1.1"
-    loader-utils "^1.1.0"
-    pify "^4.0.1"
+    klona "^2.0.3"
+    loader-utils "^2.0.0"
+    schema-utils "^2.7.0"
 
 less@^4.1.0:
   version "4.1.0"
