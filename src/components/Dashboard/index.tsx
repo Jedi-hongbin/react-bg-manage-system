@@ -8,6 +8,7 @@ import {
 import styled from "styled-components";
 import Logo from "./Logo";
 import Header from "./Header";
+import { Button } from "@material-ui/core";
 
 const { Content } = AntDLayout;
 
@@ -41,10 +42,9 @@ const Dashboard: React.FC<Props> = () => {
           </Menu.Item>
         </Menu>
       </Sider>
-      <Layout className="site-layout">
+      <Layout>
         <Header collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
         <Content
-          className="site-layout-background"
           style={{
             margin: "24px 16px",
             padding: 24,
@@ -52,6 +52,13 @@ const Dashboard: React.FC<Props> = () => {
           }}
         >
           Content
+          <Button variant="outlined" color="primary">
+            medium
+          </Button>
+          <Button size="large" variant="outlined" fullWidth color="secondary">
+            Content
+          </Button>
+          <Button color="inherit">Content</Button>
         </Content>
       </Layout>
     </Layout>
