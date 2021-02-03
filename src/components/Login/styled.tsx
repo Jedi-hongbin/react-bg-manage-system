@@ -6,12 +6,17 @@ export const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background: url(${bgImage}) no-repeat center center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 `;
 
 const DebutAnimation = keyframes`
 0% {
   transform: translateX(100%);
-  filter: blur(20px);
+  filter: blur(10px);
 }
 
 100% {

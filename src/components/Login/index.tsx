@@ -43,7 +43,7 @@ const Login: React.FC<Props> = () => {
         duration: 2,
       });
       replace("dashboard");
-    }, 2000);
+    }, 500);
   }, [loading, replace]);
 
   console.log("render");

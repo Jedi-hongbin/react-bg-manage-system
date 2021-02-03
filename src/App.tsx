@@ -1,112 +1,42 @@
-import React, { FC } from "react";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import React from "react";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
+import "./App.css";
+import TransitionRoute from "./Route/TransitionRoute";
+import { BrowserRouter as Router } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import User from "./components/User";
 
-const App: FC = () => {
+const routes = [
+  { path: "/login", name: "login", Component: Login },
+  { path: "/dashboard", name: "dashboard", Component: Dashboard },
+  { path: "/user", name: "user", Component: User },
+];
+
+const App: React.FC = () => {
   return (
     <Router>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Redirect to={{ pathname: "login" }} />
-      </Switch>
+      <Route
+        render={({ location }) => (
+          <>
+            <Route exact path="/" render={() => <Redirect to="/login" />} />
+
+            <TransitionGroup>
+              <CSSTransition key={location.key} classNames="page" timeout={300}>
+                <Switch location={location}>
+                  {routes.map(({ path, Component }) => (
+                    <Route exact path={path} component={Component} />
+                  ))}
+                  <Route render={() => <div>Not Found</div>} />
+                </Switch>
+              </CSSTransition>
+            </TransitionGroup>
+          </>
+        )}
+      />
     </Router>
   );
 };
 
 export default App;
-
-// const MyButton = styled.button`
-//   background-color: ${(props: { bgc?: string }) => props.bgc || "#51f"};
-//   padding: 4px;
-//   outline: none;
-//   border: 1px solid ${(props: { bgc?: string }) => props.bgc || "#51f"};
-//   border-radius: 2px;
-//   color: white;
-// `;
-//
-// const AntDButton = styled(Button)``;
-//
-// const Input = styled.input`
-//   border: none;
-//   border-bottom: 2px solid #51f;
-//   background-color: #ddd;
-//   padding: 4px;
-//   outline: none;
-//   color: white;
-// `;
-//
-// const PassWorldInput = styled(Input).attrs({
-//   type: "password",
-//   placeholder: "Input",
-// })`
-//   border-bottom: 2px solid #faa;
-// `;
-//
-// const border: any = { border: "1px solid orange", height: "50px" };
-
-// <div className="App">
-//   //   <Space
-//     direction="vertical"
-//     style={{
-//       flex: 1,
-//       ...border,
-//       width: "100vw",
-//       height: "100vh",
-//     }}
-//   >
-//     <Row style={border}>
-//       <Col style={border} flex={1} span={6} />
-//       <Col style={border} span={6}>
-//         <Space>
-//           <Button type="primary">Button</Button>
-//           <MyButton>MyButton</MyButton>
-//         </Space>
-//       </Col>
-//       <Col style={border} span={12} />
-//     </Row>
-//     <Row style={border}>
-//       <Col style={border} flex={1} />
-//       <Col style={border} flex={2} />
-//     </Row>
-//     <Space
-//       style={{
-//         border: "1px solid #000",
-//         width: "100%",
-//         overflowX: "scroll",
-//       }}
-//     >
-//       <AntDButton type="primary">AntDButton</AntDButton>
-//       <Input />
-//       <PassWorldInput />
-//     </Space>
-//     <Space>
-//       <Card bgc="orange">
-//         <Span bold color="#FFF" shadow capitalize>
-//           orange
-//         </Span>
-//         <Span bold color={randomColor()} shadow capitalize>
-//           {randomColor()}
-//         </Span>
-//         <Span bold color={randomColor()} shadow capitalize>
-//           {randomColor()}
-//         </Span>
-//       </Card>
-//       <Card bgc="blue">
-//         <span>blue</span>
-//       </Card>
-//       <Card>
-//         <span>primary</span>
-//       </Card>
-//       <Card as="a" href="http://hongbin.xyz" bgc="black">
-//         <span>Link</span>
-//       </Card>
-//     </Space>
-//   </Space>
-// </div>

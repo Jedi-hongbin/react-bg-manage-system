@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import { Button as AntDButton } from "antd";
+// import { Button as AntDButton } from "antd";
+import { Button as MaterialButton, ButtonTypeMap } from "@material-ui/core";
 
 export const flexCenter = css`
   display: flex;
@@ -30,4 +31,22 @@ export const textShadow = css`
   text-shadow: 0px 0px 3px #000;
 `;
 
-export const Button = styled(AntDButton)``;
+// type MyButtonProps = {
+//   theme?: any;
+//   widthFill?: boolean;
+//   onClick?: () => void;
+// } & ButtonTypeMap["props"];
+
+// const MyButton: React.FC<MyButtonProps> = (props) => (
+//   <MaterialButton>{props.children}</MaterialButton>
+// );
+
+type MyButtonProps = {
+  theme?: any;
+  widthFill?: boolean;
+};
+
+// export const Button = styled(AntDButton)``;
+export const Button = styled(MaterialButton)`
+  width: ${(props: MyButtonProps) => (props.widthFill ? "100%" : undefined)};
+`;
