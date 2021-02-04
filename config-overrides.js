@@ -4,12 +4,21 @@ const {
   addLessLoader,
   addWebpackAlias,
 } = require("customize-cra");
-const { resolve } = require("path"); //改别名
+//const { resolve } = require("path"); //改别名
+const path = require("path");
+
+// function resolve(dir) {
+//   return path.join(__dirname, ".", dir);
+// }
 
 module.exports = override(
+  // addWebpackAlias({
+  //   //改别名
+  //   "@": resolve("src"),
+  // }),
   addWebpackAlias({
-    //改别名
-    "@": resolve("src"),
+    "@": path.resolve(__dirname, "src"),
+    page: path.resolve(__dirname, "src/page"),
   }),
   fixBabelImports("import", {
     libraryName: "antd",

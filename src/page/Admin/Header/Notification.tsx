@@ -1,10 +1,10 @@
 import React, { Fragment, useCallback, useMemo, useState } from "react";
 import { Badge } from "antd";
-import Tooltip from "../../../UI/Tooltip";
+import Tooltip from "../../../components/UI/Tooltip";
 import styled from "styled-components";
 import { BellIcon } from "./styled";
 import { Close as CloseIcon } from "@material-ui/icons";
-import { Button } from "../../../../constants/styled";
+import { Button } from "../../../constants/styled";
 import {
   List,
   ListItem,
@@ -141,7 +141,7 @@ const NotificationList: React.FC<NotificationListProps> = ({
 
   const renderListItem = useCallback(
     (item, index) => (
-      <Fragment>
+      <Fragment key={index}>
         <ListItem button>
           <MyListItemText primary={item} />
           <CloseIcon onClick={deleteNotification(index)} />
@@ -159,7 +159,7 @@ const NotificationList: React.FC<NotificationListProps> = ({
           <List className={classes.root} aria-label="secondary mailbox folders">
             {data.map(renderListItem)}
           </List>
-          <Button color="primary" widthFill onClick={clearNotification}>
+          <Button color="primary" width="100%" onClick={clearNotification}>
             clear notifications
           </Button>
         </Fragment>

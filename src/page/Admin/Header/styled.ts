@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { BetweenCenter } from "../../../../constants/styled";
+import { BetweenCenter } from "../../../constants/styled";
 import { ExitToApp as ExitToAppIcon } from "@material-ui/icons";
 import {
   MenuFoldOutlined,

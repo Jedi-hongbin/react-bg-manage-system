@@ -1,38 +1,42 @@
-import React from "react";
-import Login from "./components/Login";
-import Dashboard from "./components/Dashboard";
+import React, { useCallback } from "react";
+import Login from "./page/Login";
 import "./App.css";
-import TransitionRoute from "./Route/TransitionRoute";
-import { BrowserRouter as Router } from "react-router-dom";
-import { Switch, Route, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import User from "./components/User";
+import Admin from "./page/Admin";
+import NotFound from "./page/NotFound";
 
 const routes = [
   { path: "/login", name: "login", Component: Login },
-  { path: "/dashboard", name: "dashboard", Component: Dashboard },
-  { path: "/user", name: "user", Component: User },
+  { path: "/", name: "admin", Component: Admin },
+  { path: "/notfound", name: "notfound", Component: NotFound },
 ];
 
 const App: React.FC = () => {
+  const renderRoute = useCallback(
+    ({ path, Component }) => (
+      <Route key={path} exact path={path} component={Component} />
+    ),
+    []
+  );
+
   return (
     <Router>
       <Route
         render={({ location }) => (
-          <>
-            <Route exact path="/" render={() => <Redirect to="/login" />} />
-
-            <TransitionGroup>
-              <CSSTransition key={location.key} classNames="page" timeout={300}>
-                <Switch location={location}>
-                  {routes.map(({ path, Component }) => (
-                    <Route exact path={path} component={Component} />
-                  ))}
-                  <Route render={() => <div>Not Found</div>} />
-                </Switch>
-              </CSSTransition>
-            </TransitionGroup>
-          </>
+          <TransitionGroup>
+            <CSSTransition key={location.key} classNames="page" timeout={300}>
+              <Switch location={location}>
+                {routes.map(renderRoute)}
+                <Redirect to="/notfound" />
+              </Switch>
+            </CSSTransition>
+          </TransitionGroup>
         )}
       />
     </Router>

@@ -1,5 +1,5 @@
 import React from "react";
-import Tooltip from "../../../UI/Tooltip";
+import Tooltip from "../../../components/UI/Tooltip";
 import { SignOutIcon } from "./styled";
 import { useHistory } from "react-router-dom";
 

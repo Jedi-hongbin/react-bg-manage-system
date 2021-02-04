@@ -29,8 +29,8 @@ const Login: React.FC<Props> = () => {
   const handleLogin = useCallback(() => {
     if (loading) return;
     setLoading(true);
-    const Username = username?.current?.input?.value;
-    const Password = password?.current?.input?.value;
+    const Username = username.current!.input.value;
+    const Password = password.current!.input.value;
     console.log({
       Username,
       Password,
@@ -46,7 +46,6 @@ const Login: React.FC<Props> = () => {
     }, 500);
   }, [loading, replace]);
 
-  console.log("render");
   return (
     <Wrapper>
       <LoginContainer>

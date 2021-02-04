@@ -1,5 +1,5 @@
-import styled, { keyframes } from "styled-components";
-import bgImage from "../../assets/image/33823326832_059359647d_k.jpg";
+import styled, { keyframes, css } from "styled-components";
+import bgImage from "@/assets/image/33823326832_059359647d_k.jpg";
 import { Button, Input as AntdInput, Space } from "antd";
 
 export const Wrapper = styled.div`
@@ -25,13 +25,17 @@ const DebutAnimation = keyframes`
 }
 `;
 
+const Animated = css`
+  animation: ${DebutAnimation} 0.4s linear;
+`;
+
 export const LoginContainer = styled.div`
   margin-left: auto;
   width: 350px;
   background-color: rgba(255, 255, 255, 0.6);
   height: 100%;
   padding: 1rem;
-  animation: ${DebutAnimation} 0.6s ease-out;
+  ${Animated};
 `;
 
 export const MySpace = styled(Space)`

@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
-import logo from "../../assets/image/logo.jpeg";
-import logo_big from "../../assets/image/logo_big.jpg";
+import logo from "../../../assets/image/logo.jpeg";
+import logo_big from "../../../assets/image/logo_big.jpg";
 import styled from "styled-components";
-import { flexCenter } from "../../constants/styled";
+import { flexCenter } from "../../../constants/styled";
 
 const LogoImg = styled.img.attrs({ src: logo, alt: "logo" })`
   width: 2rem;

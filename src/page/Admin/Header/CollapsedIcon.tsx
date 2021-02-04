@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import Tooltip from "../../../UI/Tooltip";
+import Tooltip from "../../../components/UI/Tooltip";
 import { UnfoldIcon, FoldOutIcon } from "./styled";
 
 interface CollapsedIconProps {

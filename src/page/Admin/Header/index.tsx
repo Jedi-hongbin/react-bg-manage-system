@@ -1,9 +1,9 @@
 import React from "react";
-import { StyledHeader } from "../../commonStyled";
 import CollapsedIcon from "./CollapsedIcon";
 import SignOut from "./SignOut";
 import Notification from "./Notification";
 import { UserInfo } from "./styled";
+import { StyledHeader } from "../styled";
 
 interface Props {
   collapsed: boolean;
