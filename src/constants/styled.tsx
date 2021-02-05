@@ -31,6 +31,11 @@ export const textShadow = css`
   text-shadow: 0px 0px 3px #000;
 `;
 
+export const Div = styled.div`
+  background-color: ${(props) => props.theme.color.bg};
+  color: ${(props) => props.theme.color.fc};
+`;
+
 // type MyButtonProps = {
 //   theme?: any;
 //   widthFill?: boolean;

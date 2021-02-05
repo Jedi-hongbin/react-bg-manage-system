@@ -6,6 +6,7 @@ import {
   MenuUnfoldOutlined,
   BellOutlined,
 } from "@ant-design/icons";
+import { Layout } from "antd";
 
 export const UserInfo = styled.div`
   min-width: 5rem;
@@ -18,7 +19,7 @@ const icon = css`
   transition: 0.2s all linear;
 
   &:hover {
-    color: #fff;
+    color: ${(props) => props.theme.color.fc};
   }
 `;
 
@@ -33,4 +34,11 @@ export const FoldOutIcon = styled(MenuFoldOutlined)`
 `;
 export const SignOutIcon = styled(ExitToAppIcon)`
   ${icon}
+`;
+
+export const Header = styled(Layout.Header)`
+  display: flex;
+  ${BetweenCenter};
+  box-shadow: 2px 0px 2px 2px #ccc;
+  background-color: ${(props) => props.theme.color.bg};
 `;

@@ -1,5 +1,6 @@
 const {
   override,
+  useBabelRc,
   fixBabelImports,
   addLessLoader,
   addWebpackAlias,
@@ -12,6 +13,8 @@ const path = require("path");
 // }
 
 module.exports = override(
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useBabelRc(),
   // addWebpackAlias({
   //   //改别名
   //   "@": resolve("src"),

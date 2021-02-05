@@ -1,15 +1,9 @@
-import React, { useCallback } from "react";
+import React from "react";
 import Login from "./page/Login";
-import "./App.css";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Admin from "./page/Admin";
 import NotFound from "./page/NotFound";
+import { IRoute } from "./type";
 
 const routes = [
   { path: "/login", name: "login", Component: Login },
@@ -17,30 +11,14 @@ const routes = [
   { path: "/notfound", name: "notfound", Component: NotFound },
 ];
 
-const App: React.FC = () => {
-  const renderRoute = useCallback(
-    ({ path, Component }) => (
-      <Route key={path} exact path={path} component={Component} />
-    ),
-    []
-  );
+const renderRoute = (route: IRoute) => (
+  <Route key={route.path} path={route.path} component={route.Component} />
+);
 
-  return (
-    <Router>
-      <Route
-        render={({ location }) => (
-          <TransitionGroup>
-            <CSSTransition key={location.key} classNames="page" timeout={300}>
-              <Switch location={location}>
-                {routes.map(renderRoute)}
-                <Redirect to="/notfound" />
-              </Switch>
-            </CSSTransition>
-          </TransitionGroup>
-        )}
-      />
-    </Router>
-  );
-};
+const App: React.FC = () => (
+  <Router>
+    <Switch>{routes.map(renderRoute)}</Switch>
+  </Router>
+);
 
 export default App;

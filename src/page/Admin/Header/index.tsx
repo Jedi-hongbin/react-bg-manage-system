@@ -3,7 +3,7 @@ import CollapsedIcon from "./CollapsedIcon";
 import SignOut from "./SignOut";
 import Notification from "./Notification";
 import { UserInfo } from "./styled";
-import { StyledHeader } from "../styled";
+import { Header as StyledHeader } from "../../../constants/LayoutStyled";
 
 interface Props {
   collapsed: boolean;

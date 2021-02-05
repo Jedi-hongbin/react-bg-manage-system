@@ -4,8 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "styled-components";
-
-const theme = { mode: "light", color: { primary: "#51f" } };
+import theme from "./theme";
 
 ReactDOM.render(
   <ThemeProvider theme={theme}>

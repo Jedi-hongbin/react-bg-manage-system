@@ -15,7 +15,7 @@ import {
 
 interface Props {}
 
-const Login: React.FC<Props> = () => {
+const Login: React.FC<Props> = (): React.ReactElement => {
   const { replace } = useHistory();
   const [loading, setLoading] = useState(false);
   const username = useRef<AntdInput>(null);

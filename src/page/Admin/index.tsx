@@ -1,8 +1,9 @@
 import React, { FC, ReactElement, useState, useCallback } from "react";
+import { Layout } from "../../constants/LayoutStyled";
 import Content from "./Content";
+import Footer from "./Footer";
 import Header from "./Header";
 import Sider from "./Sider";
-import { Container, Layout } from "./styled";
 
 interface IProps {}
 
@@ -14,15 +15,14 @@ const Admin: FC<IProps> = (): ReactElement => {
   }, []);
 
   return (
-    <Container>
+    <Layout>
+      <Sider collapsed={collapsed} />
       <Layout>
-        <Sider collapsed={collapsed} />
-        <Layout>
-          <Header collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
-          <Content />
-        </Layout>
+        <Header collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
+        <Content />
+        <Footer />
       </Layout>
-    </Container>
+    </Layout>
   );
 };
 export default Admin;

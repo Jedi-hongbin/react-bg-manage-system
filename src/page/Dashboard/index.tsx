@@ -1,8 +1,8 @@
 import React, { ReactElement, FC } from "react";
-
+import { ContentContainer } from "../../constants/LayoutStyled";
 interface IProps {}
 
 const Dashboard: FC<IProps> = (): ReactElement => {
-  return <div>123</div>;
+  return <ContentContainer>Dashboard</ContentContainer>;
 };
 export default Dashboard;
