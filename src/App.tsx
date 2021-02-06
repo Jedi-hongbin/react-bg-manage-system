@@ -17,6 +17,9 @@ const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${(props: { theme: Theme }) =>
       props.theme.colors.secondBg};
+    .ant-menu-vertical {
+      border: none;
+    }
   }
 `;
 

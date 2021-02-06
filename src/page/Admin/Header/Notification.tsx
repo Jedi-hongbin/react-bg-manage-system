@@ -6,6 +6,7 @@ import { BellIcon } from "./styled";
 import { Close as CloseIcon } from "@material-ui/icons";
 import {
   Div,
+  shadow,
   Button,
   themeBackground,
   themeBackground_second,
@@ -19,12 +20,13 @@ import {
   Divider,
 } from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-
-// MuiPaper-root
+import { Mode } from "../../../redux/types";
 
 const StyledPopover = styled(Popover)`
   .MuiPopover-paper {
     ${themeBackground};
+    ${(props) =>
+      props.theme.mode === Mode.LIGHT ? shadow : "border: 1px solid #ccc"};
   }
 `;
 

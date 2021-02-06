@@ -36,10 +36,10 @@ export const ContentContainer = styled.div`
   width: 100%;
   height: 100%;
   position: absolute;
-  ${shadowbox};
-  background-color: ${(props) => props.theme.colors.secondBg};
-  /* color: ${(props) => props.theme.colors.fc}; */
+  color: ${(props) => props.theme.colors.fc};
 `;
+/* background-color: ${(props) => props.theme.colors.secondBg}; */
+/* ${shadowbox}; */
 
 export const Footer = styled(Layout.Footer)`
   background-color: ${(props) => props.theme.colors.bg};

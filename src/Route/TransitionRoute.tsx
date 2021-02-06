@@ -1,6 +1,6 @@
 import React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation } from "react-router-dom";
 import { IRoute } from "../type";
 import "./TransitionStyle.css";
 
@@ -13,16 +13,14 @@ const renderRoute = ({ path, Component }: IRoute) => (
 );
 
 const TransitionRoute: React.FC<TransitionRouteProps> = ({ routes }): any => {
+  const location = useLocation();
+
   return (
-    <Route
-      render={({ location }) => (
-        <TransitionGroup>
-          <CSSTransition key={location.key} classNames="page" timeout={300}>
-            <Switch location={location}>{routes.map(renderRoute)}</Switch>
-          </CSSTransition>
-        </TransitionGroup>
-      )}
-    />
+    <TransitionGroup>
+      <CSSTransition key={location.key} classNames="fade" timeout={300}>
+        <Switch>{routes.map(renderRoute)}</Switch>
+      </CSSTransition>
+    </TransitionGroup>
   );
 };
 
