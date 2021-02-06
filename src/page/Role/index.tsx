@@ -4,6 +4,14 @@ import { ContentContainer } from "../../constants/LayoutStyled";
 interface IProps {}
 
 const Role: FC<IProps> = (): ReactElement => {
-  return <ContentContainer>Role</ContentContainer>;
+  return (
+    <ContentContainer
+      style={{
+        backgroundColor: "#faf",
+      }}
+    >
+      Role
+    </ContentContainer>
+  );
 };
 export default Role;

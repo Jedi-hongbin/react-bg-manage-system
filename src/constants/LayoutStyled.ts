@@ -15,12 +15,14 @@ export const Layout = styled(AntDLayout)`
 `;
 
 export const Sider = styled(Layout.Sider)`
-  background-color: ${(props) => props.theme.colors.bg};
-  /* box-shadow: 0px -1px 20px 1px #ddd; */
+  ${shadowbox};
+  z-index: 3;
+  /* 3 比 footer 的2 高，阴影在footer上部，否则看起来怪异 */
 `;
 
 export const Header = styled(Layout.Header)`
   display: flex;
+  z-index: 2;
   ${BetweenCenter};
   ${shadowbox};
 `;
@@ -45,6 +47,7 @@ export const Footer = styled(Layout.Footer)`
   background-color: ${(props) => props.theme.colors.bg};
   color: ${(props) => props.theme.colors.fc};
   ${shadowbox};
+  z-index: 2;
 `;
 
 export const Menu = styled(AntDMenu)`

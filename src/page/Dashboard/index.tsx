@@ -3,6 +3,14 @@ import { ContentContainer } from "../../constants/LayoutStyled";
 interface IProps {}
 
 const Dashboard: FC<IProps> = (): ReactElement => {
-  return <ContentContainer>Dashboard</ContentContainer>;
+  return (
+    <ContentContainer
+      style={{
+        backgroundColor: "#faa",
+      }}
+    >
+      Dashboard
+    </ContentContainer>
+  );
 };
 export default Dashboard;

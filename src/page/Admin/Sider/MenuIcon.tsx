@@ -14,5 +14,8 @@ const MenuIcon: { [icon: string]: JSX.Element } = {
   [IconList.TodoList]: TodoListIcon,
   [IconList.Role]: RoleIcon,
 };
-
+/**
+ * 这样图标的名称指定到IconList中定义的才行，
+ * 防止route定义的icon属性和MenuIcon的属性出现误差导致出错
+ */
 export default MenuIcon;

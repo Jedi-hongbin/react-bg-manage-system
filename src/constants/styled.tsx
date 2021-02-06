@@ -47,6 +47,10 @@ export const P = styled.p`
 export const themeBackground = css`
   background-color: ${(props) => props.theme.colors.bg} !important;
 `;
+
+export const themePrimaryBackground = css`
+  background-color: ${(props) => props.theme.colors.primary} !important;
+`;
 export const themeBackground_second = css`
   background-color: ${(props) => props.theme.colors.secondBg} !important;
 `;

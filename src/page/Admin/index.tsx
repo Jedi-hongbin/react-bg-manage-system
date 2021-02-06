@@ -32,7 +32,7 @@ const Admin: FC<IProps> = (): ReactElement => {
       const hasRouter =
         menuList.findIndex((menu) => menu.path === pathname) !== -1;
       if (!hasRouter) {
-        replace("notfound");
+        replace("/notfound");
       }
     }
   }, [pathname, replace]);

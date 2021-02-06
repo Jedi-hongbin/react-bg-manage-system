@@ -28,6 +28,9 @@ const Sider: FC<IProps> = ({ collapsed }): ReactElement => {
         }}
         icon={MenuIcon[IconList[icon as IconList]]}
       >
+        {/* icon as IconList
+          icon 可能是undefined 所以指定IconList 不报错
+        */}
         <NavLink to={{ pathname: path }}>{title}</NavLink>
       </Menu.Item>
     );

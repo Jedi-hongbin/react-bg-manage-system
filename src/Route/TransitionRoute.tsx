@@ -2,14 +2,14 @@ import React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Route, Switch, useLocation } from "react-router-dom";
 import { IRoute } from "../type";
-import "./TransitionStyle.css";
+import "./TransitionDrop.css";
 
 interface TransitionRouteProps {
   routes: Array<IRoute>;
 }
 
-const renderRoute = ({ path, Component }: IRoute) => (
-  <Route key={path} path={path} component={Component}></Route>
+const renderRoute = ({ path, Component, exact }: IRoute) => (
+  <Route key={path} exact={exact} path={path} component={Component}></Route>
 );
 
 const TransitionRoute: React.FC<TransitionRouteProps> = ({ routes }): any => {
@@ -17,8 +17,8 @@ const TransitionRoute: React.FC<TransitionRouteProps> = ({ routes }): any => {
 
   return (
     <TransitionGroup>
-      <CSSTransition key={location.key} classNames="fade" timeout={300}>
-        <Switch>{routes.map(renderRoute)}</Switch>
+      <CSSTransition key={location.pathname} classNames="drop" timeout={300}>
+        <Switch location={location}>{routes.map(renderRoute)}</Switch>
       </CSSTransition>
     </TransitionGroup>
   );
