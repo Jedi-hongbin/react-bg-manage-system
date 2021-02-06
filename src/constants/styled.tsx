@@ -44,6 +44,17 @@ export const P = styled.p`
   color: ${(props) => props.theme.colors.fc};
 `;
 
+export const themeBackground = css`
+  background-color: ${(props) => props.theme.colors.bg} !important;
+`;
+export const themeBackground_second = css`
+  background-color: ${(props) => props.theme.colors.secondBg} !important;
+`;
+
+export const themeFontColor = css`
+  color: ${(props) => props.theme.colors.fc} !important;
+`;
+
 // type MyButtonProps = {
 //   theme?: any;
 //   widthFill?: boolean;
@@ -73,4 +84,7 @@ interface MyButtonProps {
 }
 export const Button = styled(MaterialButton)`
   width: ${(props: MyButtonProps) => (props.width ? props.width : undefined)};
+  ${themeBackground};
+  ${themeFontColor};
 `;
+// 0px 5px 5px -3px rgb(0 0 0 / 20%), 0px 8px 10px 1px rgb(0 0 0 / 14%), 0px 3px 14px 2px rgb(0 0 0 / 12%)

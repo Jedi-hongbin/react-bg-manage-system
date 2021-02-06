@@ -10,9 +10,10 @@ import {
   MenuUnfoldOutlined,
   BellOutlined,
 } from "@ant-design/icons";
+import { Avatar as MaterialAvatar } from "@material-ui/core";
 
 export const UserInfo = styled.div`
-  min-width: 5rem;
+  min-width: 10rem;
   ${BetweenCenter}
 `;
 
@@ -43,4 +44,10 @@ export const LightIcon = styled(BrightnessHigh)`
 `;
 export const DarkIcon = styled(Brightness4)`
   ${icon}
+`;
+
+export const Avatar = styled(MaterialAvatar)`
+  background-color: ${(props) => props.theme.colors.fc}!important;
+  color: ${(props) => props.theme.colors.bg}!important;
+  cursor: pointer;
 `;

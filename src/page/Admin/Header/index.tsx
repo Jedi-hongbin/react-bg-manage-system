@@ -5,6 +5,7 @@ import Notification from "./Notification";
 import { UserInfo } from "./styled";
 import { Header as StyledHeader } from "../../../constants/LayoutStyled";
 import ThemeToggle from "./ThemeToggle";
+import Avatar from "./Avatar";
 
 interface Props {
   collapsed: boolean;
@@ -19,6 +20,7 @@ const Header: React.FC<Props> = ({ collapsed, toggleCollapsed }) => {
         <Notification />
         <ThemeToggle />
         <SignOut />
+        <Avatar />
       </UserInfo>
     </StyledHeader>
   );

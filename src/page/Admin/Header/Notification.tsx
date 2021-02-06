@@ -4,7 +4,13 @@ import Tooltip from "../../../components/UI/Tooltip";
 import styled from "styled-components";
 import { BellIcon } from "./styled";
 import { Close as CloseIcon } from "@material-ui/icons";
-import { Button } from "../../../constants/styled";
+import {
+  Div,
+  Button,
+  themeBackground,
+  themeBackground_second,
+  themeFontColor,
+} from "../../../constants/styled";
 import {
   List,
   ListItem,
@@ -13,6 +19,14 @@ import {
   Divider,
 } from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
+
+// MuiPaper-root
+
+const StyledPopover = styled(Popover)`
+  .MuiPopover-paper {
+    ${themeBackground};
+  }
+`;
 
 const Notification = () => {
   const data = [
@@ -62,7 +76,7 @@ const Notification = () => {
         </Tooltip>
       </Badge>
 
-      <Popover
+      <StyledPopover
         id={id}
         open={open}
         anchorEl={anchorEl}
@@ -81,7 +95,7 @@ const Notification = () => {
           clearNotification={clearNotification}
           deleteNotification={deleteNotification}
         />
-      </Popover>
+      </StyledPopover>
     </Fragment>
   );
   // return (
@@ -132,6 +146,16 @@ interface NotificationListProps {
   deleteNotification: (index: number) => () => void;
 }
 
+const StyledList = styled(List)`
+  ${themeBackground_second}
+`;
+const StyledMyListItemText = styled(MyListItemText)`
+  ${themeFontColor};
+`;
+const StyledCloseIcon = styled(CloseIcon)`
+  ${themeFontColor};
+`;
+
 const NotificationList: React.FC<NotificationListProps> = ({
   data,
   clearNotification,
@@ -143,8 +167,8 @@ const NotificationList: React.FC<NotificationListProps> = ({
     (item, index) => (
       <Fragment key={index}>
         <ListItem button>
-          <MyListItemText primary={item} />
-          <CloseIcon onClick={deleteNotification(index)} />
+          <StyledMyListItemText primary={item} />
+          <StyledCloseIcon onClick={deleteNotification(index)} />
         </ListItem>
         <Divider />
       </Fragment>
@@ -152,26 +176,25 @@ const NotificationList: React.FC<NotificationListProps> = ({
     [deleteNotification]
   );
 
-  return (
+  return data.length ? (
     <Fragment>
-      {data.length ? (
-        <Fragment>
-          <List className={classes.root} aria-label="secondary mailbox folders">
-            {data.map(renderListItem)}
-          </List>
-          <Button color="primary" width="100%" onClick={clearNotification}>
-            clear notifications
-          </Button>
-        </Fragment>
-      ) : (
-        <NotData />
-      )}
+      <StyledList
+        className={classes.root}
+        aria-label="secondary mailbox folders"
+      >
+        {data.map(renderListItem)}
+      </StyledList>
+      <Button color="primary" width="100%" onClick={clearNotification}>
+        clear notifications
+      </Button>
     </Fragment>
+  ) : (
+    <NotData />
   );
 };
 
 const NotData = () => (
-  <div
+  <Div
     style={{
       width: 150,
       height: 200,
@@ -182,7 +205,7 @@ const NotData = () => (
     }}
   >
     Not Data
-  </div>
+  </Div>
 );
 
 /* <List
