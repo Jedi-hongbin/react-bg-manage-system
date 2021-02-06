@@ -23,6 +23,6 @@ export const StyledContent = styled(AntDLayout.Content)`
   padding: 24px;
 `;
 export const StyledFooter = styled(AntDLayout.Footer)`
-  background-color: ${(props) => props.theme.colors.bg};
+  background-color: ${(props) => props.theme.palette.background.default};
   box-shadow: -1px 0 20px 1px #ddd;
 `;

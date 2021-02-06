@@ -23,7 +23,7 @@ const icon = css`
   transition: 0.2s all linear;
 
   &:hover {
-    color: ${(props) => props.theme.colors.fc};
+    color: ${(props) => props.theme.palette.text.primary};
   }
 `;
 
@@ -44,10 +44,4 @@ export const LightIcon = styled(BrightnessHigh)`
 `;
 export const DarkIcon = styled(Brightness4)`
   ${icon}
-`;
-
-export const Avatar = styled(MaterialAvatar)`
-  background-color: ${(props) => props.theme.colors.fc}!important;
-  color: ${(props) => props.theme.colors.bg}!important;
-  cursor: pointer;
 `;

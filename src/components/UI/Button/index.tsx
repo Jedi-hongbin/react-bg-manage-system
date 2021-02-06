@@ -1,14 +1,7 @@
-import styled from "styled-components";
-import { Button as MaterialButton } from "@material-ui/core";
-import { themePrimaryBackground } from "../../../constants/styled";
+import { Button as MaterialButton, ButtonProps } from "@material-ui/core";
 
-interface MyButtonProps {
-  theme?: any;
-  width?: string;
-}
+import React, { FC, ReactElement } from "react";
 
-export const Button = styled(MaterialButton)`
-  width: ${(props: MyButtonProps) => (props.width ? props.width : undefined)};
-  ${themePrimaryBackground};
-  color: white !important;
-`;
+export const Button: FC<ButtonProps> = (props): ReactElement => {
+  return <MaterialButton {...props}> {props.children} </MaterialButton>;
+};

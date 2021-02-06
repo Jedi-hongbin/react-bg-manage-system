@@ -1,8 +1,7 @@
 import React, { FC, ReactElement } from "react";
-import { Avatar as MaterialAvatar } from "./styled";
-interface IProps {}
+import { Avatar as MaterialAvatar } from "../../../components/UI/Avatar";
 
-const Avatar: FC<IProps> = (): ReactElement => {
+const Avatar: FC = (): ReactElement => {
   return <MaterialAvatar variant="rounded">hb</MaterialAvatar>;
 };
 

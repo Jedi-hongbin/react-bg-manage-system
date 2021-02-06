@@ -1,13 +1,14 @@
 import React, { FC, ReactElement } from "react";
 import { ContentContainer } from "../../constants/LayoutStyled";
 import Input from "./Input";
+import { Typography } from "@material-ui/core";
 
 interface IProps {}
 
 const TodoList: FC<IProps> = (): ReactElement => {
   return (
     <ContentContainer>
-      <h1>ToDo List</h1>
+      <Typography variant="caption">ToDo List</Typography>
       <Input />
     </ContentContainer>
   );

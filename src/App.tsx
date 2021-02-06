@@ -9,14 +9,18 @@ import {
 import Admin from "./page/Admin";
 import NotFound from "./page/NotFound";
 import { IRoute } from "./type";
-import { ThemeProvider, createGlobalStyle } from "styled-components";
+import {
+  ThemeProvider as StyledThemeProvider,
+  createGlobalStyle,
+} from "styled-components";
 import { useSelector } from "react-redux";
 import { Theme } from "./redux/types";
+import { ThemeProvider as MaterThemeProvider } from "@material-ui/core";
 
 const GlobalStyle = createGlobalStyle`
   body {
     background-color: ${(props: { theme: Theme }) =>
-      props.theme.colors.secondBg};
+      props.theme.palette.background.default};
     .ant-menu-vertical {
       border: none;
     }
@@ -42,15 +46,17 @@ const App: React.FC = () => {
   const { theme } = useSelector((state: any) => state.theme);
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Router>
-        <Switch>
-          {routes.map(renderRoute)}
-          <Redirect to="notfound" />
-        </Switch>
-      </Router>
-    </ThemeProvider>
+    <StyledThemeProvider theme={theme}>
+      <MaterThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Router>
+          <Switch>
+            {routes.map(renderRoute)}
+            <Redirect to="notfound" />
+          </Switch>
+        </Router>
+      </MaterThemeProvider>
+    </StyledThemeProvider>
   );
 };
 

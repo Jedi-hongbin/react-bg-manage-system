@@ -10,7 +10,9 @@ interface IProps {}
 
 const ThemeToggle: FC<IProps> = (): ReactElement => {
   const {
-    theme: { mode },
+    theme: {
+      palette: { type },
+    },
   } = useSelector((state: any) => state.theme);
   const dispatch = useDispatch();
 
@@ -22,8 +24,8 @@ const ThemeToggle: FC<IProps> = (): ReactElement => {
   );
 
   return (
-    <Tooltip title={mode}>
-      {mode === Mode.LIGHT ? (
+    <Tooltip title={type}>
+      {type === Mode.LIGHT ? (
         <LightIcon onClick={selectTheme(darkTheme)} />
       ) : (
         <DarkIcon onClick={selectTheme(lightTheme)} />

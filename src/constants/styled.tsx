@@ -32,31 +32,33 @@ export const textShadow = css`
 `;
 
 export const Div = styled.div`
-  background-color: ${(props) => props.theme.colors.bg};
-  color: ${(props) => props.theme.colors.fc};
+  background-color: ${(props) => props.theme.palette.background.default};
+  color: ${(props) => props.theme.palette.text.primary};
 `;
 
 export const Span = styled.span`
-  color: ${(props) => props.theme.colors.fc};
+  color: ${(props) => props.theme.palette.text.primary};
 `;
 
 export const P = styled.p`
-  color: ${(props) => props.theme.colors.fc};
+  color: ${(props) => props.theme.palette.text.primary};
 `;
 
 export const themeBackground = css`
-  background-color: ${(props) => props.theme.colors.bg} !important;
+  background-color: ${(props) =>
+    props.theme.palette.background.default} !important;
 `;
 
 export const themePrimaryBackground = css`
-  background-color: ${(props) => props.theme.colors.primary} !important;
+  background-color: ${(props) => props.theme.palette.text.primary} !important;
 `;
 export const themeBackground_second = css`
-  background-color: ${(props) => props.theme.colors.secondBg} !important;
+  background-color: ${(props) =>
+    props.theme.palette.background.level1} !important;
 `;
 
 export const themeFontColor = css`
-  color: ${(props) => props.theme.colors.fc} !important;
+  color: ${(props) => props.theme.palette.text.primary} !important;
 `;
 
 export const shadow = css`

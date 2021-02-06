@@ -9,11 +9,7 @@ const Input: FC<IProps> = (): ReactElement => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={3}>
-        <TextField
-          light_bgc="rgb(0 0 0 / 20%)"
-          dark_bgc="rgb(255,255,255,0.3)"
-          label="TODO"
-        />
+        <TextField label="TODO" />
       </Grid>
       <Grid
         container
@@ -23,7 +19,9 @@ const Input: FC<IProps> = (): ReactElement => {
         alignItems="flex-end"
         justify="flex-end"
       >
-        <Button width="100px">ADD</Button>
+        <Button variant="contained" color="primary">
+          ADD
+        </Button>
       </Grid>
     </Grid>
   );
