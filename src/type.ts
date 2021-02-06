@@ -9,5 +9,6 @@ export type AlignItems = "center" | "flex-end" | "flex-start";
 export interface IRoute {
   path: string;
   name?: string;
+  exact?: boolean;
   Component: React.FunctionComponent;
 }

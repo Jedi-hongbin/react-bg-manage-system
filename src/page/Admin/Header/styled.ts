@@ -1,12 +1,15 @@
 import styled, { css } from "styled-components";
 import { BetweenCenter } from "../../../constants/styled";
-import { ExitToApp as ExitToAppIcon } from "@material-ui/icons";
+import {
+  ExitToApp as ExitToAppIcon,
+  BrightnessHigh,
+  Brightness4,
+} from "@material-ui/icons";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   BellOutlined,
 } from "@ant-design/icons";
-import { Layout } from "antd";
 
 export const UserInfo = styled.div`
   min-width: 5rem;
@@ -19,7 +22,7 @@ const icon = css`
   transition: 0.2s all linear;
 
   &:hover {
-    color: ${(props) => props.theme.color.fc};
+    color: ${(props) => props.theme.colors.fc};
   }
 `;
 
@@ -35,10 +38,9 @@ export const FoldOutIcon = styled(MenuFoldOutlined)`
 export const SignOutIcon = styled(ExitToAppIcon)`
   ${icon}
 `;
-
-export const Header = styled(Layout.Header)`
-  display: flex;
-  ${BetweenCenter};
-  box-shadow: 2px 0px 2px 2px #ccc;
-  background-color: ${(props) => props.theme.color.bg};
+export const LightIcon = styled(BrightnessHigh)`
+  ${icon}
+`;
+export const DarkIcon = styled(Brightness4)`
+  ${icon}
 `;

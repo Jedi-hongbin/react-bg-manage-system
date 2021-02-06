@@ -32,8 +32,16 @@ export const textShadow = css`
 `;
 
 export const Div = styled.div`
-  background-color: ${(props) => props.theme.color.bg};
-  color: ${(props) => props.theme.color.fc};
+  background-color: ${(props) => props.theme.colors.bg};
+  color: ${(props) => props.theme.colors.fc};
+`;
+
+export const Span = styled.span`
+  color: ${(props) => props.theme.colors.fc};
+`;
+
+export const P = styled.p`
+  color: ${(props) => props.theme.colors.fc};
 `;
 
 // type MyButtonProps = {

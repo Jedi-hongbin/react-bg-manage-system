@@ -30,9 +30,9 @@ const handlePrototype: handlePrototypeProps = ({ key, def, sameAttribute }) => (
     return props[key];
   }
   if (!!sameAttribute) {
-    return props[sameAttribute] ?? props.theme.color.primary;
+    return props[sameAttribute] ?? props.theme.colors.primary;
   }
-  return props.theme.color.primary;
+  return props.theme.colors.primary;
 };
 
 interface RFCDivProps {
@@ -89,7 +89,7 @@ export const Card: any = styled(ShadowView)`
   height: 10rem;
   background-color: ${(props: { bgc?: string; theme?: any }) => {
     console.log(props.theme);
-    return props.bgc || props.theme.color.primary;
+    return props.bgc || props.theme.colors.primary;
   }};
   ${flexCenter};
 `;

@@ -25,9 +25,11 @@
     "react": "^17.0.1",
     "react-app-rewired": "^2.1.8",
     "react-dom": "^17.0.1",
+    "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
     "react-transition-group": "^4.4.1",
+    "redux": "^4.0.5",
     "styled-components": "^5.2.1",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4"
@@ -48,7 +50,8 @@
     ],
     "rules": {
       "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "error"
+      "react-hooks/exhaustive-deps": "error",
+      "no-console": "warn"
     }
   },
   "browserslist": {
@@ -64,6 +67,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7",
     "@types/styled-components": "^5.1.7",
     "eslint-plugin-react-hooks": "^4.2.0"

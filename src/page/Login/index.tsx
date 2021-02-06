@@ -12,6 +12,7 @@ import {
   Wrapper,
   Input,
 } from "./styled";
+import { log } from "../../utils/logger";
 
 interface Props {}
 
@@ -31,7 +32,7 @@ const Login: React.FC<Props> = (): React.ReactElement => {
     setLoading(true);
     const Username = username.current!.input.value;
     const Password = password.current!.input.value;
-    console.log({
+    log({
       Username,
       Password,
     });
