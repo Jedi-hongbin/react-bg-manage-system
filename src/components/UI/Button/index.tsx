@@ -1,7 +1,9 @@
-import { Button as MaterialButton, ButtonProps } from "@material-ui/core";
+import { Button as MaterialButton } from "@material-ui/core";
+import styled from "styled-components";
 
-import React, { FC, ReactElement } from "react";
-
-export const Button: FC<ButtonProps> = (props): ReactElement => {
-  return <MaterialButton {...props}> {props.children} </MaterialButton>;
-};
+export const Button = styled(MaterialButton)`
+  width: ${(props: { width?: string }) => props.width || undefined};
+`;
+// export const Button: FC<ButtonProps> = (props): ReactElement => {
+//   return <MaterialButton {...props}> {props.children} </MaterialButton>;
+// };

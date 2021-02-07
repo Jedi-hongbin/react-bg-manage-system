@@ -10,6 +10,7 @@ export enum IconList {
   Dashboard = "Dashboard",
   TodoList = "TodoList",
   Role = "Role",
+  Palette = "Palette",
 }
 
 const menuList: Array<MenuConfig> = [
@@ -30,6 +31,12 @@ const menuList: Array<MenuConfig> = [
     title: "Role",
     public: true,
     icon: IconList.Role,
+  },
+  {
+    path: "/palette",
+    title: "Palette",
+    public: true,
+    icon: IconList.Palette,
   },
 ];
 export default menuList;

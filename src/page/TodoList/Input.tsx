@@ -9,17 +9,17 @@ const Input: FC<IProps> = (): ReactElement => {
   return (
     <Grid container spacing={2}>
       <Grid item xs={12} sm={3}>
-        <TextField label="TODO" />
+        <TextField color="secondary" label="TODO" />
       </Grid>
       <Grid
         container
         item
         xs={12}
-        sm={2}
+        sm={3}
         alignItems="flex-end"
-        justify="flex-end"
+        justify="flex-start"
       >
-        <Button variant="contained" color="primary">
+        <Button width="100px" variant="outlined" color="primary">
           ADD
         </Button>
       </Grid>

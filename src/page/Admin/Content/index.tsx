@@ -5,6 +5,7 @@ import Dashboard from "../../Dashboard";
 import Role from "../../Role";
 import TodoList from "../../TodoList";
 import { Content as StyledContent } from "../../../constants/LayoutStyled";
+import Palette from "../../Palette";
 
 interface IProps {}
 
@@ -12,6 +13,7 @@ const routes: Array<IRoute> = [
   { path: "/todoList", Component: TodoList },
   { path: "/role", Component: Role },
   { path: "/dashboard", Component: Dashboard },
+  { path: "/palette", Component: Palette },
 ];
 const Content: FC<IProps> = (): ReactElement => {
   return (

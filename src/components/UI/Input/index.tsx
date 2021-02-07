@@ -2,28 +2,38 @@ import {
   TextField as MaterialTextField,
   TextFieldProps,
 } from "@material-ui/core";
-import { Mode, Theme } from "../../../redux/types";
+import { Theme } from "../../../redux/types";
 import styled, { StyledComponent } from "styled-components";
-import { themeBackground, themeFontColor } from "../../../constants/styled";
 
 type StyledProps = {
-  light_bgc?: string;
-  dark_bgc?: string;
   theme?: Theme;
+  width?: string;
+  flex?: number;
+  height?: string;
 };
 
 type IProps = StyledComponent<
-  (props: TextFieldProps & StyledProps) => JSX.Element,
+  (props: TextFieldProps) => JSX.Element,
   any,
   {
     variant: "filled";
+    width?: string;
+    flex?: number;
+    height?: string;
   },
   "variant"
 >;
 
-export const TextField: IProps = styled(MaterialTextField).attrs({
+export const TextField = styled(MaterialTextField).attrs({
   variant: "filled",
-})``;
+})`
+  width: ${(props: { flex?: number; height?: string; width?: string }) =>
+    props.width || undefined};
+  height: ${(props: { flex?: number; height?: string; width?: string }) =>
+    props.height || undefined};
+  flex: ${(props: { flex?: number; height?: string; width?: string }) =>
+    props.flex || undefined};
+`;
 
 // .MuiFilledInput-root {
 //     ${themeFontColor};
