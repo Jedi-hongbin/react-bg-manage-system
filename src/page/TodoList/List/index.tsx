@@ -45,7 +45,7 @@ const List: FC<IProps> = ({ todoList, dispatch }): ReactElement => {
       </Grid>
     );
   }
-  return <Typography color="textPrimary">not date</Typography>;
+  return <Typography color="textPrimary">not data</Typography>;
 };
 
 export default List;
