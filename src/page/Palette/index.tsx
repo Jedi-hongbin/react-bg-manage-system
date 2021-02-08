@@ -8,7 +8,7 @@ const Palette: FC = (): ReactElement => {
   const {
     theme: { palette },
   } = useSelector((state: any) => state.theme);
-
+  log(palette);
   const filterItem = useMemo(
     () => [
       "type",
