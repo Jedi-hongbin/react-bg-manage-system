@@ -1,112 +1,212 @@
-import React, { FC } from "react";
+import React from "react";
+import Login from "./page/Login";
 import {
   BrowserRouter as Router,
-  Redirect,
   Route,
   Switch,
+  Redirect,
 } from "react-router-dom";
-import Login from "./components/Login";
-import Dashboard from "./components/Dashboard";
+import Admin from "./page/Admin";
+import NotFound from "./page/NotFound";
+import { IRoute } from "./type";
+import {
+  ThemeProvider as StyledThemeProvider,
+  createGlobalStyle,
+} from "styled-components";
+import { useSelector } from "react-redux";
+import { Theme } from "./redux/types";
+import { ThemeProvider as MaterThemeProvider } from "@material-ui/core";
 
-const App: FC = () => {
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: ${(props: { theme: Theme }) =>
+      props.theme.palette.background.default};
+    .ant-menu-vertical {
+      border: none;
+    }
+  }
+`;
+
+const routes = [
+  { path: "/login", exact: true, name: "login", Component: Login },
+  { path: "/notfound", exact: true, name: "notfound", Component: NotFound },
+  { path: "/", name: "admin", exact: false, Component: Admin },
+];
+
+const renderRoute = (route: IRoute) => (
+  <Route
+    key={route.path}
+    exact={route.exact}
+    path={route.path}
+    component={route.Component}
+  />
+);
+
+const App: React.FC = () => {
+  const { theme } = useSelector((state: any) => state.theme);
+
   return (
-    <Router>
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Redirect to={{ pathname: "login" }} />
-      </Switch>
-    </Router>
+    <StyledThemeProvider theme={theme}>
+      <MaterThemeProvider theme={theme}>
+        <GlobalStyle />
+        <Router>
+          <Switch>
+            {routes.map(renderRoute)}
+            <Redirect to="notfound" />
+          </Switch>
+        </Router>
+      </MaterThemeProvider>
+    </StyledThemeProvider>
   );
 };
 
 export default App;
 
-// const MyButton = styled.button`
-//   background-color: ${(props: { bgc?: string }) => props.bgc || "#51f"};
-//   padding: 4px;
-//   outline: none;
-//   border: 1px solid ${(props: { bgc?: string }) => props.bgc || "#51f"};
-//   border-radius: 2px;
-//   color: white;
-// `;
-//
-// const AntDButton = styled(Button)``;
-//
-// const Input = styled.input`
-//   border: none;
-//   border-bottom: 2px solid #51f;
-//   background-color: #ddd;
-//   padding: 4px;
-//   outline: none;
-//   color: white;
-// `;
-//
-// const PassWorldInput = styled(Input).attrs({
-//   type: "password",
-//   placeholder: "Input",
-// })`
-//   border-bottom: 2px solid #faa;
-// `;
-//
-// const border: any = { border: "1px solid orange", height: "50px" };
+// import "./Route/TransitionStyle.css";
+// import React from "react";
+// import { TransitionGroup, CSSTransition } from "react-transition-group";
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link,
+//   Redirect,
+// } from "react-router-dom";
 
-// <div className="App">
-//   //   <Space
-//     direction="vertical"
+// /* you'll need this CSS somewhere
+// .fade-enter {
+//   opacity: 0;
+//   z-index: 1;
+// }
+
+// .fade-enter.fade-enter-active {
+//   opacity: 1;
+//   transition: opacity 250ms ease-in;
+// }
+// */
+
+// const AnimationExample = () => (
+//   <Router>
+//     <Route
+//       render={({ location }) => (
+//         <div style={styles.fill}>
+//           <Route
+//             exact
+//             path="/"
+//             render={() => <Redirect to="/hsl/10/90/50" />}
+//           />
+
+//           <ul style={styles.nav}>
+//             <NavLink to="/hsl/10/90/50">Red</NavLink>
+//             <NavLink to="/hsl/120/100/40">Green</NavLink>
+//             <NavLink to="/rgb/33/150/243">Blue</NavLink>
+//             <NavLink to="/rgb/240/98/146">Pink</NavLink>
+//           </ul>
+
+//           <div style={styles.content}>
+//             <TransitionGroup>
+//               {/* no different than other usage of
+//                 CSSTransition, just make sure to pass
+//                 `location` to `Switch` so it can match
+//                 the old location as it animates out
+//             */}
+//               <CSSTransition key={location.key} classNames="fade" timeout={300}>
+//                 <Switch location={location}>
+//                   <Route exact path="/hsl/:h/:s/:l" component={HSL} />
+//                   <Route exact path="/rgb/:r/:g/:b" component={RGB} />
+//                   {/* Without this `Route`, we would get errors during
+//                     the initial transition from `/` to `/hsl/10/90/50`
+//                 */}
+//                   <Route render={() => <div>Not Found</div>} />
+//                 </Switch>
+//               </CSSTransition>
+//             </TransitionGroup>
+//           </div>
+//         </div>
+//       )}
+//     />
+//   </Router>
+// );
+
+// const NavLink = (props: any) => (
+//   <li style={styles.navItem}>
+//     <Link {...props} style={{ color: "inherit" }} />
+//   </li>
+// );
+
+// const HSL = ({ match: { params } }: any) => (
+//   <div
 //     style={{
-//       flex: 1,
-//       ...border,
-//       width: "100vw",
-//       height: "100vh",
+//       ...styles.fill,
+//       ...styles.hsl,
+//       background: `hsl(${params.h}, ${params.s}%, ${params.l}%)`,
 //     }}
 //   >
-//     <Row style={border}>
-//       <Col style={border} flex={1} span={6} />
-//       <Col style={border} span={6}>
-//         <Space>
-//           <Button type="primary">Button</Button>
-//           <MyButton>MyButton</MyButton>
-//         </Space>
-//       </Col>
-//       <Col style={border} span={12} />
-//     </Row>
-//     <Row style={border}>
-//       <Col style={border} flex={1} />
-//       <Col style={border} flex={2} />
-//     </Row>
-//     <Space
-//       style={{
-//         border: "1px solid #000",
-//         width: "100%",
-//         overflowX: "scroll",
-//       }}
-//     >
-//       <AntDButton type="primary">AntDButton</AntDButton>
-//       <Input />
-//       <PassWorldInput />
-//     </Space>
-//     <Space>
-//       <Card bgc="orange">
-//         <Span bold color="#FFF" shadow capitalize>
-//           orange
-//         </Span>
-//         <Span bold color={randomColor()} shadow capitalize>
-//           {randomColor()}
-//         </Span>
-//         <Span bold color={randomColor()} shadow capitalize>
-//           {randomColor()}
-//         </Span>
-//       </Card>
-//       <Card bgc="blue">
-//         <span>blue</span>
-//       </Card>
-//       <Card>
-//         <span>primary</span>
-//       </Card>
-//       <Card as="a" href="http://hongbin.xyz" bgc="black">
-//         <span>Link</span>
-//       </Card>
-//     </Space>
-//   </Space>
-// </div>
+//     hsl({params.h}, {params.s}%, {params.l}%) hsl({params.h}, {params.s}%,{" "}
+//     {params.l}%) hsl({params.h}, {params.s}%, {params.l}%) hsl({params.h},{" "}
+//     {params.s}%, {params.l}%) hsl({params.h}, {params.s}%, {params.l}%) hsl(
+//     {params.h}, {params.s}%, {params.l}%) hsl({params.h}, {params.s}%,{" "}
+//     {params.l}%) hsl({params.h}, {params.s}%, {params.l}%)
+//   </div>
+// );
+
+// const RGB = ({ match: { params } }: any) => (
+//   <div
+//     style={{
+//       ...styles.fill,
+//       ...styles.rgb,
+//       background: `rgb(${params.r}, ${params.g}, ${params.b})`,
+//     }}
+//   >
+//     rgb({params.r}, {params.g}, {params.b})
+//   </div>
+// );
+
+// const styles: any = {};
+
+// styles.fill = {
+//   position: "absolute",
+//   left: 0,
+//   right: 0,
+//   top: 0,
+//   bottom: 0,
+// };
+
+// styles.content = {
+//   ...styles.fill,
+//   top: "40px",
+//   textAlign: "center",
+// };
+
+// styles.nav = {
+//   padding: 0,
+//   margin: 0,
+//   position: "absolute",
+//   top: 0,
+//   height: "40px",
+//   width: "100%",
+//   display: "flex",
+// };
+
+// styles.navItem = {
+//   textAlign: "center",
+//   flex: 1,
+//   listStyleType: "none",
+//   padding: "10px",
+// };
+
+// styles.hsl = {
+//   ...styles.fill,
+//   color: "white",
+//   paddingTop: "20px",
+//   fontSize: "30px",
+// };
+
+// styles.rgb = {
+//   ...styles.fill,
+//   color: "white",
+//   paddingTop: "20px",
+//   fontSize: "30px",
+// };
+
+// export default AnimationExample;

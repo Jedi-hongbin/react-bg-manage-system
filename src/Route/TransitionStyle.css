@@ -1,0 +1,122 @@
+:root {
+  --duration: 300ms;
+  --duration--exit: 300ms;
+}
+
+.drop-enter {
+  z-index: 1;
+  opacity: 0.5;
+  transform: translateY(-100%);
+}
+
+.drop-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform var(--duration) ease-in-out,
+    opacity var(--duration) ease-in-out;
+}
+
+.drop-exit {
+  transform: translateY(0);
+}
+
+.drop-exit-active {
+  opacity: 0.5;
+  transform: translateY(100%) !important;
+  transition: transform var(--duration--exit) ease-in-out,
+    opacity var(--duration--exit) ease-in-out;
+}
+
+.draw-enter {
+  z-index: 0;
+}
+
+.draw-enter-active {
+  z-index: 0;
+  /* transform: translateX(0);
+  transition: transform var(--duration) linear, opacity var(--duration) linear; */
+}
+
+.draw-exit {
+  z-index: 1;
+}
+
+.draw-exit-active {
+  transform: translateX(100%) !important;
+  z-index: 1;
+  transition: transform var(--duration--exit) linear;
+}
+
+.page-enter {
+  opacity: 0;
+  transform: scale(1.1);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity var(--duration), transform var(--duration);
+}
+
+.page-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity var(--duration), transform var(--duration);
+}
+
+.move-enter {
+  /* opacity: 0.5; */
+  z-index: 0;
+  transform: translateX(-100%);
+}
+
+.move-enter-active {
+  /* opacity: 1; */
+  z-index: 1;
+  transform: translateX(0);
+  transition: transform var(--duration) linear, opacity var(--duration) linear;
+}
+
+.move-exit {
+  opacity: 0;
+  transform: translateX(0) scaleY(0.9);
+}
+
+.move-exit-active {
+  opacity: 1;
+  transform: translateX(100%) scaleY(0.9);
+  transition: transform var(--duration--exit) linear 300ms;
+}
+/* 
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity var(--duration) ease-out;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transition: opacity var(--duration) ease-out;
+} */
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease-in;
+}

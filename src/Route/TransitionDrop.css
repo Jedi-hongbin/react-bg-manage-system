@@ -1,0 +1,31 @@
+:root {
+  --enter--duration: 300ms;
+  --exit--duration: 300ms;
+  --enter--transition--property: ease-in-out;
+  --exit--transition--property: ease-in-out;
+}
+
+.drop-enter {
+  z-index: 1;
+  opacity: 0.5;
+  transform: translateY(-100%);
+}
+
+.drop-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform var(--enter--duration)
+      var(--enter--transition--property),
+    opacity var(--enter--duration) var(--enter--transition--property);
+}
+
+.drop-exit {
+  transform: translateY(0);
+}
+
+.drop-exit-active {
+  opacity: 0.5;
+  transform: translateY(100%) !important;
+  transition: transform var(--exit--duration) var(--exit--transition--property),
+    opacity var(--exit--duration) var(--exit--transition--property);
+}
