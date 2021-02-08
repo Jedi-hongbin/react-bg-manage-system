@@ -1,39 +1,35 @@
-import {
-  TextField as MaterialTextField,
-  TextFieldProps,
-} from "@material-ui/core";
-import { Theme } from "../../../redux/types";
-import styled, { StyledComponent } from "styled-components";
+import { TextField as MaterialTextField } from "@material-ui/core";
+import styled from "styled-components";
+import { BaseCssProps } from "../typing";
 
-type StyledProps = {
-  theme?: Theme;
-  width?: string;
-  flex?: number;
-  height?: string;
-};
+interface TextFieldProps extends BaseCssProps {}
 
-type IProps = StyledComponent<
-  (props: TextFieldProps) => JSX.Element,
-  any,
-  {
-    variant: "filled";
-    width?: string;
-    flex?: number;
-    height?: string;
-  },
-  "variant"
->;
+export const TextField = styled(MaterialTextField).attrs({ variant: "filled" })(
+  (props: TextFieldProps) => ({
+    width: props.width,
+    height: props.height,
+    flex: props.flex,
+  })
+);
 
-export const TextField = styled(MaterialTextField).attrs({
-  variant: "filled",
-})`
-  width: ${(props: { flex?: number; height?: string; width?: string }) =>
-    props.width || undefined};
-  height: ${(props: { flex?: number; height?: string; width?: string }) =>
-    props.height || undefined};
-  flex: ${(props: { flex?: number; height?: string; width?: string }) =>
-    props.flex || undefined};
-`;
+// export const TextField = styled(MaterialTextField).attrs({
+//   variant: "filled",
+// })`
+//   width: ${(props: { flex?: number; height?: string; width?: string }) =>
+//     props.width || undefined};
+//   height: ${(props: { flex?: number; height?: string; width?: string }) =>
+//     props.height || undefined};
+//   flex: ${(props: { flex?: number; height?: string; width?: string }) =>
+//     props.flex || undefined};
+// `;
+
+// const PropsBox = styled(MaterialTextField)(
+//   (props: { background?: string }) => ({
+//     background: props.background,
+//     height: "50px",
+//     width: "50px",
+//   })
+// );
 
 // .MuiFilledInput-root {
 //     ${themeFontColor};

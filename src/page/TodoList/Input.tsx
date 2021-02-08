@@ -8,8 +8,8 @@ interface IProps {}
 const Input: FC<IProps> = (): ReactElement => {
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} sm={3}>
-        <TextField color="secondary" label="TODO" />
+      <Grid container item xs={12} sm={3}>
+        <TextField label="TODO" flex={1} />
       </Grid>
       <Grid
         container

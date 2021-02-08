@@ -10,7 +10,6 @@ import {
   MenuUnfoldOutlined,
   BellOutlined,
 } from "@ant-design/icons";
-import { Avatar as MaterialAvatar } from "@material-ui/core";
 
 export const UserInfo = styled.div`
   min-width: 10rem;

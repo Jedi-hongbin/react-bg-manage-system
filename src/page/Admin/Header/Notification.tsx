@@ -24,11 +24,11 @@ import { Button } from "../../../components/UI/Button";
 
 const StyledPopover = styled(Popover)`
   .MuiPopover-paper {
-    ${themeBackground};
-    ${(props) =>
-      props.theme.mode === Mode.LIGHT ? shadow : "border: 1px solid #ccc"};
+    /* ${themeBackground}; */
   }
 `;
+/* ${(props) =>
+    props.theme.mode === Mode.LIGHT ? shadow : "border: 1px solid #ccc"}; */
 
 const Notification = () => {
   const data = [
@@ -186,7 +186,7 @@ const NotificationList: React.FC<NotificationListProps> = ({
       >
         {data.map(renderListItem)}
       </StyledList>
-      <Button color="primary" onClick={clearNotification}>
+      <Button width="100%" color="secondary" onClick={clearNotification}>
         clear notifications
       </Button>
     </Fragment>

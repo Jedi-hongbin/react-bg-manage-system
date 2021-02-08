@@ -12,3 +12,10 @@ export interface IRoute {
   exact?: boolean;
   Component: React.FunctionComponent;
 }
+
+export type FlexWrap =
+  | "nowrap"
+  | "wrap"
+  | "wrap-reverse"
+  | "initial"
+  | "inherit";

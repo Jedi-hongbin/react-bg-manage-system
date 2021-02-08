@@ -49,6 +49,11 @@ export const themeBackground = css`
     props.theme.palette.background.default} !important;
 `;
 
+export const themeSecondBackground = css`
+  background-color: ${(props) =>
+    props.theme.palette.background.paper} !important;
+`;
+
 export const themePrimaryBackground = css`
   background-color: ${(props) => props.theme.palette.text.primary} !important;
 `;
