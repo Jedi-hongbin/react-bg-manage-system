@@ -1,20 +1,21 @@
-import React, { FC, ReactElement, useCallback, useRef } from "react";
+import React, { Dispatch, FC, ReactElement, useCallback, useRef } from "react";
 import { TextField } from "../../components/UI/Input";
 import { Button } from "../../components/UI/Button";
 import { Grid } from "@material-ui/core";
-import { Todo } from "./typing";
+import { addTodo, IAddTodoAction } from "./action";
+import { v1 as UUIDV1 } from "uuid";
 interface IProps {
-  addTodo: (todo: Todo) => void;
+  dispatch: Dispatch<IAddTodoAction>;
 }
 
-const Input: FC<IProps> = ({ addTodo }): ReactElement => {
+const Input: FC<IProps> = ({ dispatch }): ReactElement => {
   const input = useRef<HTMLInputElement>(null);
 
   const handleAddTodo = useCallback((): void => {
     const content = input!.current!.value;
-    addTodo({ content, selected: false });
+    addTodo({ id: UUIDV1(), content, complete: false })(dispatch);
     input!.current!.value = "";
-  }, [addTodo]);
+  }, [dispatch]);
 
   return (
     <Grid container spacing={2}>

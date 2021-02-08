@@ -1,45 +1,36 @@
-import React, { FC, ReactElement, useState, useCallback } from "react";
+import React, {
+  FC,
+  ReactElement,
+  useReducer,
+  useEffect,
+  useCallback,
+} from "react";
 import { ContentContainer } from "../../constants/LayoutStyled";
 import { Typography } from "@material-ui/core";
-import { Todo, TodoList as TodoListType } from "./typing";
 import Input from "./Input";
 import List from "./List";
+import { reducer } from "./reducer";
 
-interface IProps {}
+const initializer = () => JSON.parse(localStorage.getItem("todoList") || "[]");
 
-const TodoList: FC<IProps> = (): ReactElement => {
-  const [todoList, setTodoList] = useState<TodoListType>([]);
+const TodoList: FC = (): ReactElement => {
+  const [todoList, dispatch] = useReducer(reducer, undefined, initializer);
 
-  const addTodo = useCallback((todo: Todo): void => {
-    setTodoList((prev) => [...prev, todo]);
-  }, []);
+  const saveLocalStorage = useCallback(
+    (todoList) => () => {
+      localStorage.setItem("todoList", JSON.stringify(todoList));
+    },
+    []
+  );
 
-  const removeTodo = useCallback((todo: Todo): void => {
-    setTodoList((prev) => prev.filter((item) => item.content !== todo.content));
-  }, []);
-
-  const toggleTodoStatus = useCallback((todo: Todo): void => {
-    setTodoList((prev) => {
-      const prevData = [...prev];
-      prevData.some((item) => {
-        if (item.content === todo.content) {
-          item.selected = !item.selected;
-          return true;
-        }
-      });
-      return prevData;
-    });
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(saveLocalStorage(todoList), [todoList]);
 
   return (
     <ContentContainer>
       <Typography variant="caption">ToDo List</Typography>
-      <Input addTodo={addTodo} />
-      <List
-        todoList={todoList}
-        removeTodo={removeTodo}
-        toggleTodoStatus={toggleTodoStatus}
-      />
+      <Input dispatch={dispatch} />
+      <List todoList={todoList} dispatch={dispatch} />
     </ContentContainer>
   );
 };
