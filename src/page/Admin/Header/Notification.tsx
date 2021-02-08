@@ -6,7 +6,6 @@ import { BellIcon } from "./styled";
 import { Close as CloseIcon } from "@material-ui/icons";
 import {
   Div,
-  shadow,
   themeBackground,
   themeBackground_second,
   themeFontColor,
@@ -19,7 +18,6 @@ import {
   Divider,
 } from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import { Mode } from "../../../redux/types";
 import { Button } from "../../../components/UI/Button";
 
 const StyledPopover = styled(Popover)`
