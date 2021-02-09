@@ -4,12 +4,9 @@ import {
   ExitToApp as ExitToAppIcon,
   BrightnessHigh,
   Brightness4,
+  Mail,
 } from "@material-ui/icons";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  BellOutlined,
-} from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
 export const UserInfo = styled.div`
   min-width: 10rem;
@@ -18,7 +15,7 @@ export const UserInfo = styled.div`
 
 const icon = css`
   color: #999;
-  font-size: 1.2rem;
+  font-size: 1.5rem !important;
   transition: 0.2s all linear;
 
   &:hover {
@@ -26,7 +23,7 @@ const icon = css`
   }
 `;
 
-export const BellIcon = styled(BellOutlined)`
+export const BellIcon = styled(Mail)`
   ${icon}
 `;
 export const UnfoldIcon = styled(MenuUnfoldOutlined)`

@@ -55,7 +55,11 @@ export const themeSecondBackground = css`
 `;
 
 export const themePrimaryBackground = css`
-  background-color: ${(props) => props.theme.palette.text.primary} !important;
+  background-color: ${(props) => props.theme.palette.primary.main} !important;
+`;
+
+export const themePrimaryColor = css`
+  color: ${(props) => props.theme.palette.primary.main} !important;
 `;
 export const themeBackground_second = css`
   background-color: ${(props) =>

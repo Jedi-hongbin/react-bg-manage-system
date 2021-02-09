@@ -1,5 +1,5 @@
 import React, { Fragment, useCallback, useMemo, useState } from "react";
-import { Badge } from "antd";
+import { Badge } from "../../../components/UI/Badge";
 import Tooltip from "../../../components/UI/Tooltip";
 import styled from "styled-components";
 import { BellIcon } from "./styled";
@@ -70,7 +70,11 @@ const Notification = () => {
 
   return (
     <Fragment>
-      <Badge count={notificationList.length} size="small">
+      <Badge
+        badgeContent={notificationList.length}
+        color="primary"
+        // overlap="circle"
+      >
         <Tooltip title="notification">
           <BellIcon onClick={handleClick} />
         </Tooltip>

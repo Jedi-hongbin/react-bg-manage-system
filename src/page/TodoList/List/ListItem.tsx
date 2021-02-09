@@ -10,26 +10,26 @@ import { Todo, ID } from "../typing";
 
 interface ITodoListItem {
   todo: Todo;
-  handleToggleTodoStatus: (id: ID) => () => void;
-  handleRemoveTodo: (id: ID) => () => void;
+  onRemoveList: (id: ID) => () => void;
+  onToggleListStatus: (id: ID) => () => void;
 }
 
 const ListItem: FC<ITodoListItem> = ({
   todo: { id, content, complete },
-  handleRemoveTodo,
-  handleToggleTodoStatus,
+  onRemoveList,
+  onToggleListStatus,
 }: ITodoListItem): ReactElement => (
   <MaterialListItem divider button>
     <ListItemIcon>
       <Checkbox
         checked={complete}
         color="primary"
-        onChange={handleToggleTodoStatus(id)}
+        onChange={onToggleListStatus(id)}
       />
     </ListItemIcon>
     <ListItemText primary={content} />
     <ListItemIcon>
-      <IndeterminateCheckBox onClick={handleRemoveTodo(id)} />
+      <IndeterminateCheckBox onClick={onRemoveList(id)} />
     </ListItemIcon>
   </MaterialListItem>
 );

@@ -1,6 +1,7 @@
 import React, { FC, ReactElement, useCallback, useMemo } from "react";
 import {
   Menu,
+  MenuItem,
   Sider as StyledSider,
   NavLink,
 } from "../../../constants/LayoutStyled";
@@ -19,20 +20,16 @@ const Sider: FC<IProps> = ({ collapsed }): ReactElement => {
   const renderMenuItem = useCallback((menu: MenuConfig) => {
     const { path, title, icon } = menu;
     return (
-      <Menu.Item
+      <MenuItem
         key={path}
         title={title}
-        style={{
-          display: "flex",
-          alignItems: "center",
-        }}
         icon={MenuIcon[IconList[icon as IconList]]}
       >
         {/* icon as IconList
           icon 可能是undefined 所以指定IconList 不报错
         */}
         <NavLink to={{ pathname: path }}>{title}</NavLink>
-      </Menu.Item>
+      </MenuItem>
     );
   }, []);
 

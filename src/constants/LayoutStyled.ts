@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { Layout as AntDLayout, Menu as AntDMenu } from "antd";
-import { BetweenCenter, themeBackground } from "./styled";
+import { BetweenCenter, themeBackground, themePrimaryColor } from "./styled";
 import { NavLink as MyNavLink } from "react-router-dom";
 import { Theme } from "../redux/types";
 import { AlignItems, JustifyContentProps } from "../type";
@@ -86,11 +86,23 @@ export const Menu = styled(AntDMenu)`
   color: ${(props) => props.theme.palette.text.primary}!important;
 `;
 
+export const MenuItem = styled(Menu.Item)`
+  background-color: ${(props) => props.theme.palette.background.default};
+  display: flex;
+  align-items: center;
+
+  &.ant-menu-item-selected {
+    ${themePrimaryColor};
+    background-color: ${(props) =>
+      props.theme.palette.action.selected} !important;
+  }
+`;
+
 export const NavLink = styled(MyNavLink)`
   color: ${(props) => props.theme.palette.text.primary}!important;
 
   &.active {
-    color: ${(props) => props.theme.palette.primary.main}!important;
+    ${themePrimaryColor};
   }
 `;
 /* color: ${(props) => props.theme.colors.primary}!important; */

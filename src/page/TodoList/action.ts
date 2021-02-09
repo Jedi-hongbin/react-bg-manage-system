@@ -31,18 +31,18 @@ export const removeTodo = (ID: ID) => (
   dispatch(removeTodoAction(ID));
 };
 // toggle
-export interface IToggleTodoStatusAction {
+export interface IToggleTodoListStatusAction {
   type: Actions;
   payload: ID;
 }
 
-const toggleTodoStatusAction = (ID: ID): IToggleTodoStatusAction => ({
+const toggleTodoListStatusAction = (ID: ID): IToggleTodoListStatusAction => ({
   type: Actions.TOGGLE_TODO_STATUS,
   payload: ID,
 });
 
-export const toggleTodoStatus = (ID: ID) => (
-  dispatch: Dispatch<IToggleTodoStatusAction>
+export const toggleTodoListStatus = (ID: ID) => (
+  dispatch: Dispatch<IToggleTodoListStatusAction>
 ) => {
-  dispatch(toggleTodoStatusAction(ID));
+  dispatch(toggleTodoListStatusAction(ID));
 };
