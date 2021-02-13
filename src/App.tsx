@@ -26,7 +26,7 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 `;
-
+console.log(module);
 const routes = [
   { path: "/login", exact: true, name: "login", Component: Login },
   { path: "/notfound", exact: true, name: "notfound", Component: NotFound },
