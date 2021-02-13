@@ -104,5 +104,8 @@ export const NavLink = styled(MyNavLink)`
   &.active {
     ${themePrimaryColor};
   }
+  &:hover {
+    ${themePrimaryColor};
+  }
 `;
 /* color: ${(props) => props.theme.colors.primary}!important; */
