@@ -1,43 +1,25 @@
-import React, {
-  FC,
-  ReactElement,
-  useState,
-  useCallback,
-  useLayoutEffect,
-} from "react";
+import React, { FC, ReactElement, useState, useCallback } from "react";
 import { Layout } from "../../constants/LayoutStyled";
+import withRouteMonitor from "../../utils/routemonitor/withRouteMonitor";
 import Content from "./Content";
 import Footer from "./Footer";
 import Header from "./Header";
 import Sider from "./Sider";
-import { useHistory } from "react-router-dom";
-import { log } from "../../utils/logger";
-import menuList from "../../config/menuConfig";
 
 interface IProps {}
 
 const Admin: FC<IProps> = (): ReactElement => {
-  const {
-    location: { pathname },
-    replace,
-  } = useHistory();
   const [collapsed, setCollapsed] = useState(false);
 
-  const routerRedirect = useCallback(() => {
-    log("pathname:", pathname);
-    if (pathname === "/") {
-      replace("dashboard");
-      log("replace dashboard");
-    } else {
-      const hasRouter =
-        menuList.findIndex((menu) => menu.path === pathname) !== -1;
-      if (!hasRouter) {
-        replace("/notfound");
+  const findIndexCallback = useCallback(
+    (pathname: string) => (menu: any) => {
+      if (menu.children) {
+        return menu.children.findIndex(findIndexCallback(pathname)) !== -1;
       }
-    }
-  }, [pathname, replace]);
-
-  useLayoutEffect(routerRedirect, [routerRedirect]);
+      return menu.path === pathname;
+    },
+    []
+  );
 
   const toggleCollapsed = useCallback(() => {
     setCollapsed((status) => !status);
@@ -54,4 +36,5 @@ const Admin: FC<IProps> = (): ReactElement => {
     </Layout>
   );
 };
-export default Admin;
+
+export default withRouteMonitor(Admin);
