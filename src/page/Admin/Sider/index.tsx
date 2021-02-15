@@ -1,8 +1,10 @@
 import React, { FC, ReactElement, useCallback, useMemo } from "react";
 import {
   Menu,
+  MenuItem,
   Sider as StyledSider,
   NavLink,
+  SubMenu,
 } from "../../../constants/LayoutStyled";
 import Logo from "./Logo";
 import menuList, { IconList, MenuConfig } from "../../../config/menuConfig";
@@ -14,32 +16,41 @@ interface IProps {
 
 const Sider: FC<IProps> = ({ collapsed }): ReactElement => {
   const { pathname } = useLocation();
-  const selectedMenuIndex = useMemo(() => pathname, [pathname]);
+  const selectedKeys = useMemo(() => pathname, [pathname]);
+  const defaultOpenKeys = useMemo(() => pathname, [pathname]);
 
   const renderMenuItem = useCallback((menu: MenuConfig) => {
-    const { path, title, icon } = menu;
+    const { path, title, icon, children } = menu;
+    if (children) {
+      return (
+        <SubMenu
+          key={path as string}
+          icon={MenuIcon[IconList[icon as IconList]]}
+          title={title}
+        >
+          {children.map(renderMenuItem)}
+        </SubMenu>
+      );
+    }
     return (
-      <Menu.Item
+      <MenuItem
         key={path}
         title={title}
-        style={{
-          display: "flex",
-          alignItems: "center",
-        }}
         icon={MenuIcon[IconList[icon as IconList]]}
       >
-        {/* icon as IconList
-          icon 可能是undefined 所以指定IconList 不报错
-        */}
         <NavLink to={{ pathname: path }}>{title}</NavLink>
-      </Menu.Item>
+      </MenuItem>
     );
   }, []);
 
   return (
     <StyledSider trigger={null} collapsible collapsed={collapsed}>
       <Logo />
-      <Menu selectedKeys={[selectedMenuIndex]}>
+      <Menu
+        mode="inline"
+        selectedKeys={[selectedKeys]}
+        defaultOpenKeys={[defaultOpenKeys]}
+      >
         {menuList.map(renderMenuItem)}
       </Menu>
     </StyledSider>

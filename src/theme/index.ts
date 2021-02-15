@@ -4,12 +4,18 @@ import { Mode } from "../redux/types";
 export const darkTheme = createMuiTheme({
   palette: {
     type: Mode.DARK,
+    primary: {
+      main: "#fff",
+    },
   },
 });
 
 export const lightTheme = createMuiTheme({
   palette: {
     type: Mode.LIGHT,
+    primary: {
+      main: "#51f",
+    },
   },
 });
 

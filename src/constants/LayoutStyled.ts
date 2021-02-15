@@ -1,19 +1,32 @@
 import styled, { css } from "styled-components";
 import { Layout as AntDLayout, Menu as AntDMenu } from "antd";
-import { BetweenCenter, themeBackground } from "./styled";
+import {
+  BetweenCenter,
+  themeBackground,
+  themePrimaryColor,
+  themeFontColor,
+  themeDefaultBackgroundAndColor,
+} from "./styled";
 import { NavLink as MyNavLink } from "react-router-dom";
 import { Theme } from "../redux/types";
 import { AlignItems, JustifyContentProps } from "../type";
+import {
+  PrimaryColors,
+  Primary,
+  ActionColors,
+  Action,
+  TextColors,
+  Text,
+} from "../theme/colorsHelper";
 
 export const shadowbox = css`
-  ${themeBackground};
-  color: ${(props) => props.theme.palette.text.primary};
+  ${themeDefaultBackgroundAndColor};
   box-shadow: ${(props) => props.theme.shadows[2]};
 `;
 
 export const Layout = styled(AntDLayout)`
+  ${themeBackground};
   height: 100vh;
-  background-color: ${(props) => props.theme.palette.background.default};
 `;
 
 export const Sider = styled(Layout.Sider)`
@@ -70,27 +83,74 @@ export const ContentContainer = styled(flexDiv)((props) => ({
   color: props.theme.palette.text.primary,
 }));
 
-/* ${themeSecondBackground}; */
-/* background-color: ${(props) => props.theme.colors.secondBg}; */
-/* ${shadowbox}; */
-
 export const Footer = styled(Layout.Footer)`
-  background-color: ${(props) => props.theme.palette.background.default};
-  color: ${(props) => props.theme.palette.text.primary};
   ${shadowbox};
   z-index: 2;
 `;
 
 export const Menu = styled(AntDMenu)`
-  background-color: ${(props) => props.theme.palette.background.default};
-  color: ${(props) => props.theme.palette.text.primary}!important;
+  ${themeDefaultBackgroundAndColor};
+  border-color: transparent;
+`;
+
+const MenuItemCss = css`
+  ${themeBackground};
+  display: flex;
+  align-items: center;
+
+  &::after {
+    border-right-color: ${PrimaryColors(Primary.main)} !important;
+  }
+
+  &.ant-menu-item-active,
+  &.ant-menu-item-selected {
+    ${themePrimaryColor};
+    background-color: ${ActionColors(Action.selected)} !important;
+  }
+`;
+
+export const MenuItem = styled(Menu.Item)`
+  ${MenuItemCss}
+`;
+
+const AntdTransition = css`
+  transition: 0.3s background ease;
+`;
+
+export const SubMenu = styled(AntDMenu.SubMenu)`
+  ${themeBackground};
+  ${AntdTransition};
+  &.ant-menu-submenu-selected {
+    ${themePrimaryColor};
+  }
+
+  & > .ant-menu-submenu-title {
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      ${themePrimaryColor};
+      background-color: ${(props) =>
+        props.theme.palette.action.selected} !important;
+    }
+  }
+  .ant-menu-inline {
+    ${AntdTransition};
+    background-color: transparent !important;
+    ${themeFontColor}
+  }
+  .ant-menu-submenu-arrow {
+    color: ${TextColors(Text.primary)};
+  }
 `;
 
 export const NavLink = styled(MyNavLink)`
-  color: ${(props) => props.theme.palette.text.primary}!important;
+  color: ${TextColors(Text.primary)} !important;
 
   &.active {
-    color: ${(props) => props.theme.palette.primary.main}!important;
+    ${themePrimaryColor};
+  }
+  &:hover {
+    ${themePrimaryColor};
   }
 `;
-/* color: ${(props) => props.theme.colors.primary}!important; */

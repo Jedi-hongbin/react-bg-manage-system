@@ -55,7 +55,11 @@ export const themeSecondBackground = css`
 `;
 
 export const themePrimaryBackground = css`
-  background-color: ${(props) => props.theme.palette.text.primary} !important;
+  background-color: ${(props) => props.theme.palette.primary.main} !important;
+`;
+
+export const themePrimaryColor = css`
+  color: ${(props) => props.theme.palette.primary.main} !important;
 `;
 export const themeBackground_second = css`
   background-color: ${(props) =>
@@ -64,6 +68,11 @@ export const themeBackground_second = css`
 
 export const themeFontColor = css`
   color: ${(props) => props.theme.palette.text.primary} !important;
+`;
+
+export const themeDefaultBackgroundAndColor = css`
+  ${themeBackground};
+  ${themeFontColor};
 `;
 
 export const shadow = css`

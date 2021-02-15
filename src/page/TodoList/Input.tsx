@@ -1,15 +1,27 @@
-import React, { FC, ReactElement } from "react";
+import React, { FC, ReactElement, useCallback, useRef } from "react";
 import { TextField } from "../../components/UI/Input";
 import { Button } from "../../components/UI/Button";
 import { Grid } from "@material-ui/core";
+import { v1 as UUIDV1 } from "uuid";
+import { Todo } from "./typing";
+interface IProps {
+  onAddTodo: (todo: Todo) => void;
+}
 
-interface IProps {}
+const Input: FC<IProps> = ({ onAddTodo }): ReactElement => {
+  const input = useRef<HTMLInputElement>(null);
 
-const Input: FC<IProps> = (): ReactElement => {
+  const handleAddTodo = useCallback((): void => {
+    const content = input!.current!.value;
+    const todo = { id: UUIDV1(), content, complete: false };
+    onAddTodo(todo);
+    input!.current!.value = "";
+  }, [onAddTodo]);
+
   return (
     <Grid container spacing={2}>
       <Grid container item xs={12} sm={3}>
-        <TextField label="TODO" flex={1} />
+        <TextField inputRef={input} label="TODO" flex={1} />
       </Grid>
       <Grid
         container
@@ -19,11 +31,17 @@ const Input: FC<IProps> = (): ReactElement => {
         alignItems="flex-end"
         justify="flex-start"
       >
-        <Button width="100px" variant="outlined" color="primary">
+        <Button
+          onClick={handleAddTodo}
+          width="100px"
+          variant="outlined"
+          color="primary"
+        >
           ADD
         </Button>
       </Grid>
     </Grid>
   );
 };
+
 export default Input;

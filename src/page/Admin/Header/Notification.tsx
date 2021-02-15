@@ -1,12 +1,11 @@
 import React, { Fragment, useCallback, useMemo, useState } from "react";
-import { Badge } from "antd";
+import { Badge } from "../../../components/UI/Badge";
 import Tooltip from "../../../components/UI/Tooltip";
 import styled from "styled-components";
 import { BellIcon } from "./styled";
 import { Close as CloseIcon } from "@material-ui/icons";
 import {
   Div,
-  shadow,
   themeBackground,
   themeBackground_second,
   themeFontColor,
@@ -19,7 +18,6 @@ import {
   Divider,
 } from "@material-ui/core";
 import { createStyles, Theme, makeStyles } from "@material-ui/core/styles";
-import { Mode } from "../../../redux/types";
 import { Button } from "../../../components/UI/Button";
 
 const StyledPopover = styled(Popover)`
@@ -72,7 +70,11 @@ const Notification = () => {
 
   return (
     <Fragment>
-      <Badge count={notificationList.length} size="small">
+      <Badge
+        badgeContent={notificationList.length}
+        color="primary"
+        // overlap="circle"
+      >
         <Tooltip title="notification">
           <BellIcon onClick={handleClick} />
         </Tooltip>

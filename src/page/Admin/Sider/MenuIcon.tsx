@@ -3,19 +3,53 @@ import {
   FormatListBulleted,
   AccessibilityNew,
   Palette as PaletteIcon,
+  FileCopy,
+  EventNote,
 } from "@material-ui/icons";
 import { IconList } from "../../../config/menuConfig";
 
-const DashboardIcon = <Dashboard style={{ fontSize: 24 }} />;
-const TodoListIcon = <FormatListBulleted style={{ fontSize: 24 }} />;
-const RoleIcon = <AccessibilityNew style={{ fontSize: 24 }} />;
-const Palette = <PaletteIcon style={{ fontSize: 24 }} />;
+import styled, { css } from "styled-components";
+import { ReactElement } from "react";
 
-const MenuIcon: { [icon: string]: JSX.Element } = {
-  [IconList.Dashboard]: DashboardIcon,
-  [IconList.TodoList]: TodoListIcon,
-  [IconList.Role]: RoleIcon,
-  [IconList.Palette]: Palette,
+const IconStyled = css`
+  font-size: 1.2rem !important;
+`;
+
+const DashboardIcon = styled(Dashboard)`
+  ${IconStyled};
+`;
+
+const TodoListIcon = styled(FormatListBulleted)`
+  ${IconStyled};
+`;
+
+const RoleIcon = styled(AccessibilityNew)`
+  ${IconStyled};
+`;
+
+const Palette = styled(PaletteIcon)`
+  ${IconStyled};
+`;
+
+const Copy = styled(FileCopy)`
+  ${IconStyled};
+`;
+//className : anticon anticon-ci 防止收缩模式出现文字显示（antd-icon没有问题，自定义icon需要加上）
+const StudyIcon = styled(EventNote).attrs({
+  className: "anticon anticon-ci",
+})`
+  ${IconStyled};
+`;
+
+const MenuIcon: {
+  [icon: string]: ReactElement;
+} = {
+  [IconList.Dashboard]: <DashboardIcon />,
+  [IconList.TodoList]: <TodoListIcon />,
+  [IconList.Role]: <RoleIcon />,
+  [IconList.Palette]: <Palette />,
+  [IconList.Copy]: <Copy />,
+  [IconList.StudyIcon]: <StudyIcon />,
 };
 /**
  * 这样图标的名称指定到IconList中定义的才行，
