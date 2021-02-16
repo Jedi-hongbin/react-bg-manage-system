@@ -5,43 +5,39 @@ import {
   useEffect,
   useCallback,
   useState,
+  useMemo,
 } from "react";
 import axios from "axios";
 import { log } from "../../../utils/logger";
 import { ContentContainer } from "../../../constants/LayoutStyled";
-import { FormatListNumberedRtlSharp } from "@material-ui/icons";
-
-const timeout = 500;
-const imageProperty = "sourceIndex";
-let Timer: NodeJS.Timeout | null = null;
 
 const ImageVideo: FC = (): ReactElement => {
+  const timeout = useMemo(() => 50, []);
+  const imageProperty = useMemo(() => "sourceIndex", []);
   const canvas = useRef<HTMLCanvasElement>(null);
   const [sources, setSources] = useState<string[]>([]);
-  const [currentSourcesIndex, setCurrentSourcesIndex] = useState<number>(0);
   const image = useRef<HTMLImageElement>(new Image());
+  const dragOrigin = useRef<{ origin: number }>({ origin: 0 });
+  const Timer = useRef<{ timer: NodeJS.Timeout | null }>({ timer: null });
 
   const toggleSource = useCallback(
     (nextIndex: number) => {
-      log("nextIndex:", nextIndex);
       const eImage = image.current;
       eImage.setAttribute(imageProperty, nextIndex.toString());
       eImage.src = sources[nextIndex];
-      setCurrentSourcesIndex(() => nextIndex);
     },
-    [sources]
+    [sources, imageProperty]
   );
 
   const autoRotate = useCallback(
-    (nextIndex = 1): void => {
-      //   const sourceIndex = nextIndex <= sources.length ? nextIndex : 0;
-      const sourceIndex = nextIndex <= sources.length ? nextIndex : 0;
-      toggleSource(sourceIndex);
-      Timer = setTimeout(() => {
-        autoRotate(sourceIndex + 1);
+    (startIndex = 1): void => {
+      const nextIndex = startIndex <= sources.length ? startIndex : 0;
+      toggleSource(nextIndex);
+      Timer.current.timer = setTimeout(() => {
+        autoRotate(nextIndex + 1);
       }, timeout);
     },
-    [sources, toggleSource]
+    [sources, toggleSource, timeout]
   );
 
   const drawDefaultImage = useCallback(() => {
@@ -52,11 +48,13 @@ const ImageVideo: FC = (): ReactElement => {
     eImage.onload = () => {
       ctx!.drawImage(eImage, 0, 0, 365, 365);
     };
+    eImage.setAttribute(imageProperty, "0");
     eImage.src = imgSrc;
-  }, []);
+  }, [imageProperty]);
 
   const handleClearTimeout = useCallback(() => {
-    clearTimeout(Timer as NodeJS.Timeout);
+    clearTimeout(Timer.current.timer as NodeJS.Timeout);
+    Timer.current.timer = null;
   }, []);
 
   useEffect(() => {
@@ -98,29 +96,43 @@ const ImageVideo: FC = (): ReactElement => {
     }
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const onMouseMove = useCallback(() => {
-    // toggleSource(currentSourcesIndex + 1);
-    const eImage = image.current;
-    const currentSourceIndex = Number(eImage.getAttribute(imageProperty));
-    log(currentSourceIndex);
-    toggleSource(currentSourceIndex + 1);
-    // const nextIndex = currentSourceIndex + 1;
-    // log("nextIndex:", nextIndex);
-    // eImage.src = sources[nextIndex];
-  }, [image, toggleSource]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const onMouseDown = useCallback(() => {
-    handleClearTimeout();
-    canvas.current!.addEventListener("mousemove", onMouseMove);
-  }, [onMouseMove, canvas, handleClearTimeout]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const onMouseUp = useCallback(() => {
-    canvas.current!.removeEventListener("mousemove", onMouseMove);
-    const sourceIndex = image.current.getAttribute(imageProperty);
-    log("up", sourceIndex);
-    autoRotate(Number(sourceIndex) + 1);
-  }, [onMouseMove, canvas, image, autoRotate]);
+  const onMouseMove = useCallback(
+    ({ clientX }) => {
+      const eImage = image.current;
+      const currentSourceIndex = Number(eImage.getAttribute(imageProperty));
+      const nextIndex =
+        clientX > dragOrigin.current.origin
+          ? currentSourceIndex - 1
+          : currentSourceIndex + 1;
+      const shouldIndex =
+        nextIndex <= sources.length && nextIndex >= 0
+          ? nextIndex
+          : nextIndex < 0
+          ? sources.length
+          : 0;
+      toggleSource(shouldIndex);
+      dragOrigin.current.origin = clientX;
+    },
+    [image, toggleSource, sources, dragOrigin, imageProperty]
+  );
+
+  const onMouseDown = useCallback(
+    ({ clientX }) => {
+      dragOrigin.current.origin = clientX;
+      handleClearTimeout();
+      canvas.current!.addEventListener("mousemove", onMouseMove);
+    },
+    [onMouseMove, canvas, handleClearTimeout]
+  );
+
+  const cancelDrag = useCallback(() => {
+    if (!Timer.current.timer) {
+      log("cancel", Timer.current.timer);
+      canvas.current!.removeEventListener("mousemove", onMouseMove);
+      const sourceIndex = image.current.getAttribute(imageProperty);
+      autoRotate(Number(sourceIndex) + 1);
+    }
+  }, [onMouseMove, canvas, image, autoRotate, imageProperty, Timer]);
 
   return (
     <ContentContainer>
@@ -130,7 +142,8 @@ const ImageVideo: FC = (): ReactElement => {
         height="365"
         style={{ cursor: "ew-resize" }}
         onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
+        onMouseUp={cancelDrag}
+        onMouseLeave={cancelDrag}
       />
     </ContentContainer>
   );
