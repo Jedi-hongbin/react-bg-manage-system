@@ -44,9 +44,12 @@ const ImageVideo: FC = (): ReactElement => {
     eImage.src = imgSrc;
   }, []);
 
-  const handleClearTimeout = () => () => {
-    clearTimeout(Timer as NodeJS.Timeout);
-  };
+  const handleClearTimeout = useCallback(
+    () => () => {
+      clearTimeout(Timer as NodeJS.Timeout);
+    },
+    []
+  );
 
   useEffect(() => {
     drawDefaultImage();
