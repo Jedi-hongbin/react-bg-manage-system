@@ -4,6 +4,7 @@ import Role from "../page/Role";
 import TodoList from "../page/TodoList";
 import Palette from "../page/Palette";
 import Copy from "../page/Study/Copy";
+import ImageVideo from "../page/Study/ImageVideo";
 
 export enum IRole {
   ADMIN = 0,
@@ -26,6 +27,7 @@ export enum IconList {
   Palette = "Palette",
   Copy = "Copy",
   StudyIcon = "StudyIcon",
+  ImageVideo = "ImageVideo",
 }
 
 const menuList: Array<MenuConfig> = [
@@ -66,6 +68,12 @@ const menuList: Array<MenuConfig> = [
         public: true,
         icon: IconList.Copy,
       },
+      {
+        path: "/study/360",
+        title: "360",
+        public: true,
+        icon: IconList.ImageVideo,
+      },
     ],
   },
 ];
@@ -78,4 +86,5 @@ export const routes: Array<IRoute> = [
   { path: "/dashboard", Component: Dashboard },
   { path: "/palette", Component: Palette },
   { path: "/study/copy", Component: Copy },
+  { path: "/study/360", Component: ImageVideo },
 ];
