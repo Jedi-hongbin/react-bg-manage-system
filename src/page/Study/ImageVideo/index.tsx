@@ -44,13 +44,15 @@ const ImageVideo: FC = (): ReactElement => {
     eImage.src = imgSrc;
   }, []);
 
+  const handleClearTimeout = () => () => {
+    clearTimeout(Timer as NodeJS.Timeout);
+  };
+
   useEffect(() => {
     drawDefaultImage();
     getSource();
 
-    return () => {
-      clearTimeout(Timer as NodeJS.Timeout);
-    };
+    return handleClearTimeout();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
