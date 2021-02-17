@@ -32,7 +32,7 @@ const DragImages: FC<IProps> = ({
   const image = useRef<HTMLImageElement>(new Image());
   const dragOrigin = useRef<{ origin: number }>({ origin: 0 });
   const Timer = useRef<ITimer>({ timer: null });
-  log("provideSources:", provideSources);
+
   const toggleSource = useCallback(
     (nextIndex: number) => {
       const eImage = image.current;
@@ -55,7 +55,7 @@ const DragImages: FC<IProps> = ({
 
   const drawDefaultImage = useCallback(() => {
     const ctx = canvas.current!.getContext("2d");
-    const eImage = image.current;
+    const eImage: CanvasImageSource = image.current;
     eImage.onload = () => {
       ctx!.drawImage(eImage, 0, 0, width, height);
     };
