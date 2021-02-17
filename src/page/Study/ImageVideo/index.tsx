@@ -8,7 +8,7 @@ interface IProps {}
 const ImageVideo: FC<IProps> = (): ReactElement => {
   return (
     <ContentContainer>
-      {/* <Emerald /> */}
+      <Emerald />
       {/* base 64 */}
       <Emerald2 />
       {/* blob */}

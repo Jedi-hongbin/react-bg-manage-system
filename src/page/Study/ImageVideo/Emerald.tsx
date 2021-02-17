@@ -8,11 +8,11 @@ const defaultSource =
   "https://media.emeralds.com/stone/E1526/video360/E1526-video360-001-Medium.jpg?1";
 
 const Emerald: FC<IProps> = (): ReactElement => {
-  const [sources, setSources] = useState<string[]>([]);
+  const [sources, setSources] = useState<HTMLImageElement[]>([]);
 
   const getSource = useCallback(async () => {
     let i = 1;
-    const source: string[] = [];
+    const source: HTMLImageElement[] = [];
 
     while (i <= 261) {
       const url = `https://media.emeralds.com/stone/E1526/video360/E1526-video360-${i
@@ -29,7 +29,9 @@ const Emerald: FC<IProps> = (): ReactElement => {
                 ""
               )
             );
-          source.push(imgSrc as string);
+          const image = new Image();
+          image.src = imgSrc;
+          source.push(image);
         })
         .catch(() => {});
       i++;
@@ -49,7 +51,7 @@ const Emerald: FC<IProps> = (): ReactElement => {
       width={300}
       height={300}
       defaultSource={defaultSource}
-      sources={[new Image()]}
+      sources={sources}
     />
   );
 };
