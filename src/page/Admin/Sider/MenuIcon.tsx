@@ -5,6 +5,7 @@ import {
   Palette as PaletteIcon,
   FileCopy,
   EventNote,
+  ThreeDRotation,
 } from "@material-ui/icons";
 import { IconList } from "../../../config/menuConfig";
 
@@ -31,13 +32,18 @@ const Palette = styled(PaletteIcon)`
   ${IconStyled};
 `;
 
-const Copy = styled(FileCopy)`
-  ${IconStyled};
-`;
 //className : anticon anticon-ci 防止收缩模式出现文字显示（antd-icon没有问题，自定义icon需要加上）
 const StudyIcon = styled(EventNote).attrs({
   className: "anticon anticon-ci",
 })`
+  ${IconStyled};
+`;
+
+const Copy = styled(FileCopy)`
+  ${IconStyled};
+`;
+
+const ImageVideo = styled(ThreeDRotation)`
   ${IconStyled};
 `;
 
@@ -50,6 +56,7 @@ const MenuIcon: {
   [IconList.Palette]: <Palette />,
   [IconList.Copy]: <Copy />,
   [IconList.StudyIcon]: <StudyIcon />,
+  [IconList.ImageVideo]: <ImageVideo />,
 };
 /**
  * 这样图标的名称指定到IconList中定义的才行，
