@@ -1,15 +1,15 @@
 import React, { FC, ReactElement } from "react";
-import DragImages from "./DragImages";
 import { ContentContainer } from "../../../constants/LayoutStyled";
+import Emerald from "./Emerald";
+import Emerald2 from "./Emerald2";
 
 interface IProps {}
 
 const ImageVideo: FC<IProps> = (): ReactElement => {
   return (
     <ContentContainer>
-      <DragImages />
-      <DragImages width={300} height={300} />
-      <DragImages width={200} height={200} />
+      <Emerald />
+      <Emerald2 />
     </ContentContainer>
   );
 };

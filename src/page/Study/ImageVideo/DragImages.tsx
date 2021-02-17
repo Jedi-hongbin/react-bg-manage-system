@@ -4,25 +4,27 @@ import {
   useRef,
   useEffect,
   useCallback,
-  useState,
   useMemo,
 } from "react";
-import axios from "axios";
 import { log } from "../../../utils/logger";
 
 interface IProps {
   width?: number;
   height?: number;
+  sources: Array<string>;
+  defaultSource: string;
 }
 
 const DragImages: FC<IProps> = ({
   width = 365,
   height = 365,
+  sources,
+  defaultSource,
 }): ReactElement => {
   const timeout = useMemo(() => 50, []);
   const imageProperty = useMemo(() => "sourceIndex", []);
   const canvas = useRef<HTMLCanvasElement>(null);
-  const [sources, setSources] = useState<string[]>([]);
+  const provideSources = useMemo(() => sources, [sources]);
   const image = useRef<HTMLImageElement>(new Image());
   const dragOrigin = useRef<{ origin: number }>({ origin: 0 });
   const Timer = useRef<{ timer: NodeJS.Timeout | null }>({ timer: null });
@@ -31,77 +33,54 @@ const DragImages: FC<IProps> = ({
     (nextIndex: number) => {
       const eImage = image.current;
       eImage.setAttribute(imageProperty, nextIndex.toString());
-      eImage.src = sources[nextIndex];
+      eImage.src = provideSources[nextIndex];
     },
-    [sources, imageProperty]
+    [provideSources, imageProperty]
   );
 
   const autoRotate = useCallback(
     (startIndex = 1): void => {
-      const nextIndex = startIndex <= sources.length ? startIndex : 0;
+      const nextIndex = startIndex <= provideSources.length ? startIndex : 0;
       toggleSource(nextIndex);
       Timer.current.timer = setTimeout(() => {
         autoRotate(nextIndex + 1);
       }, timeout);
     },
-    [sources, toggleSource, timeout]
+    [provideSources, toggleSource, timeout]
   );
 
   const drawDefaultImage = useCallback(() => {
     const ctx = canvas.current!.getContext("2d");
-    const imgSrc =
-      "https://media.emeralds.com/stone/E1526/video360/E1526-video360-001-Medium.jpg?1";
     const eImage = image.current;
     eImage.onload = () => {
       ctx!.drawImage(eImage, 0, 0, width, height);
     };
     eImage.setAttribute(imageProperty, "0");
-    eImage.src = imgSrc;
-  }, [height, imageProperty, width]);
+    eImage.src = defaultSource;
+  }, [height, imageProperty, width, defaultSource]);
 
   const handleClearTimeout = useCallback(() => {
     clearTimeout(Timer.current.timer as NodeJS.Timeout);
     Timer.current.timer = null;
   }, []);
 
-  useEffect(() => {
-    drawDefaultImage();
-    getSource();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => handleClearTimeout, []);
 
-    return handleClearTimeout;
+  useEffect(() => {
+    if (defaultSource) {
+      drawDefaultImage();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [defaultSource]);
 
   useEffect(() => {
-    if (sources.length) {
+    if (provideSources.length) {
       log("start");
       autoRotate();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sources]);
-
-  const getSource = useCallback(async () => {
-    let i = 1;
-    const source: string[] = [];
-
-    while (i <= 261) {
-      const url = `https://media.emeralds.com/stone/E1526/video360/E1526-video360-${i
-        .toString()
-        .padStart(3, "0")}-Medium.jpg?1`;
-      await axios
-        .get(url, { responseType: "blob" })
-        .then((response: any) => {
-          const imgSrc = window.URL.createObjectURL(response.data);
-          source.push(imgSrc);
-        })
-        .catch(() => {});
-      i++;
-    }
-    if (source.length) {
-      setSources(() => source);
-      log("source length:", source.length);
-    }
-  }, []);
+  }, [provideSources]);
 
   const onMouseMove = useCallback(
     ({ clientX }) => {
@@ -112,15 +91,15 @@ const DragImages: FC<IProps> = ({
           ? currentSourceIndex - 1
           : currentSourceIndex + 1;
       const shouldIndex =
-        nextIndex <= sources.length && nextIndex >= 0
+        nextIndex <= provideSources.length && nextIndex >= 0
           ? nextIndex
           : nextIndex < 0
-          ? sources.length
+          ? provideSources.length
           : 0;
       toggleSource(shouldIndex);
       dragOrigin.current.origin = clientX;
     },
-    [image, toggleSource, sources, dragOrigin, imageProperty]
+    [image, toggleSource, provideSources, dragOrigin, imageProperty]
   );
 
   const onMouseDown = useCallback(
