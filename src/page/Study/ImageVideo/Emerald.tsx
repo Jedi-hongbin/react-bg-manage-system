@@ -19,10 +19,17 @@ const Emerald: FC<IProps> = (): ReactElement => {
         .toString()
         .padStart(3, "0")}-Medium.jpg?1`;
       await axios
-        .get(url, { responseType: "blob" })
+        .get(url, { responseType: "arraybuffer" })
         .then((response: any) => {
-          const imgSrc = window.URL.createObjectURL(response.data);
-          source.push(imgSrc);
+          const imgSrc =
+            "data:image/png;base64," +
+            btoa(
+              new Uint8Array(response.data).reduce(
+                (data, byte) => data + String.fromCharCode(byte),
+                ""
+              )
+            );
+          source.push(imgSrc as string);
         })
         .catch(() => {});
       i++;

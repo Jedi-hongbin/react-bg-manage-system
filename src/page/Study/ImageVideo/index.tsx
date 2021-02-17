@@ -9,7 +9,9 @@ const ImageVideo: FC<IProps> = (): ReactElement => {
   return (
     <ContentContainer>
       <Emerald />
+      {/* base 64 */}
       <Emerald2 />
+      {/* blob */}
     </ContentContainer>
   );
 };

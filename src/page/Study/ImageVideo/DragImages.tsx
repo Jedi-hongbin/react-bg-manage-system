@@ -32,7 +32,7 @@ const DragImages: FC<IProps> = ({
   const image = useRef<HTMLImageElement>(new Image());
   const dragOrigin = useRef<{ origin: number }>({ origin: 0 });
   const Timer = useRef<ITimer>({ timer: null });
-
+  log("provideSources:", provideSources);
   const toggleSource = useCallback(
     (nextIndex: number) => {
       const eImage = image.current;
