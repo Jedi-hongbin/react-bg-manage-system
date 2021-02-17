@@ -49,7 +49,7 @@ const Emerald: FC<IProps> = (): ReactElement => {
       width={300}
       height={300}
       defaultSource={defaultSource}
-      sources={sources}
+      sources={[new Image()]}
     />
   );
 };

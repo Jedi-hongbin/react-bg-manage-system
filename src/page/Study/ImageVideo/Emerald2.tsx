@@ -1,18 +1,23 @@
-import { FC, ReactElement, useCallback, useState, useEffect } from "react";
+import {
+  FC,
+  ReactElement,
+  useCallback,
+  useState,
+  useEffect,
+  useMemo,
+} from "react";
 import axios from "axios";
-import { log } from "../../../utils/logger";
 import DragImages from "./DragImages";
 
-interface IProps {}
 const defaultSource =
   "https://media.emeralds.com/stone/E122/video360/E122-video360-001-Medium.jpg?1";
 
-const Emerald2: FC<IProps> = (): ReactElement => {
-  const [sources, setSources] = useState<string[]>([]);
+const Emerald2: FC = (): ReactElement => {
+  const [sources, setSources] = useState<HTMLImageElement[]>([]);
 
   const getSource = useCallback(async () => {
     let i = 1;
-    const source: string[] = [];
+    const source: HTMLImageElement[] = [];
 
     while (i <= 219) {
       const url = `https://media.emeralds.com/stone/E122/video360/E122-video360-${i
@@ -21,31 +26,40 @@ const Emerald2: FC<IProps> = (): ReactElement => {
       await axios
         .get(url, { responseType: "blob" })
         .then((response: any) => {
+          const image = new Image();
           const imgSrc = window.URL.createObjectURL(response.data);
-          source.push(imgSrc);
+          image.src = imgSrc;
+          source.push(image);
         })
         .catch(() => {});
       i++;
     }
     if (source.length) {
       setSources(() => source);
-      log("source length:", source.length);
     }
   }, []);
 
   useEffect(() => {
     getSource();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getSource]);
 
-  return (
-    <DragImages
-      width={300}
-      height={300}
-      defaultSource={defaultSource}
-      sources={sources}
-    />
+  const DragImagesMemo = useMemo(
+    () => (
+      <DragImages
+        width={300}
+        height={300}
+        defaultSource={defaultSource}
+        sources={sources}
+        onStart={() => {
+          // eslint-disable-next-line no-console
+          console.log("start", sources.length);
+        }}
+      />
+    ),
+    [sources]
   );
+
+  return <>{DragImagesMemo}</>;
 };
 
 export default Emerald2;
