@@ -15,6 +15,10 @@ interface IProps {
   defaultSource: string;
 }
 
+interface ITimer {
+  timer: NodeJS.Timeout | null;
+}
+
 const DragImages: FC<IProps> = ({
   width = 365,
   height = 365,
@@ -27,7 +31,7 @@ const DragImages: FC<IProps> = ({
   const provideSources = useMemo(() => sources, [sources]);
   const image = useRef<HTMLImageElement>(new Image());
   const dragOrigin = useRef<{ origin: number }>({ origin: 0 });
-  const Timer = useRef<{ timer: NodeJS.Timeout | null }>({ timer: null });
+  const Timer = useRef<ITimer>({ timer: null });
 
   const toggleSource = useCallback(
     (nextIndex: number) => {
@@ -64,42 +68,34 @@ const DragImages: FC<IProps> = ({
     Timer.current.timer = null;
   }, []);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => handleClearTimeout, []);
+  useEffect(() => handleClearTimeout, [handleClearTimeout]);
 
   useEffect(() => {
     if (defaultSource) {
       drawDefaultImage();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultSource]);
+  }, [defaultSource, drawDefaultImage]);
 
   useEffect(() => {
     if (provideSources.length) {
       log("start");
       autoRotate();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [provideSources]);
+  }, [provideSources, autoRotate]);
 
   const onMouseMove = useCallback(
     ({ clientX }) => {
-      const eImage = image.current;
-      const currentSourceIndex = Number(eImage.getAttribute(imageProperty));
-      const nextIndex =
-        clientX > dragOrigin.current.origin
-          ? currentSourceIndex - 1
-          : currentSourceIndex + 1;
-      const shouldIndex =
-        nextIndex <= provideSources.length && nextIndex >= 0
-          ? nextIndex
-          : nextIndex < 0
-          ? provideSources.length
-          : 0;
-      toggleSource(shouldIndex);
+      const currentSourceIndex = image.current.getAttribute(imageProperty);
+      const nextSourcesIndex = computedNextSourcesIndex(
+        clientX,
+        dragOrigin.current.origin,
+        Number(currentSourceIndex),
+        provideSources.length
+      );
+      toggleSource(nextSourcesIndex);
       dragOrigin.current.origin = clientX;
     },
-    [image, toggleSource, provideSources, dragOrigin, imageProperty]
+    [imageProperty, provideSources, toggleSource]
   );
 
   const onMouseDown = useCallback(
@@ -133,3 +129,24 @@ const DragImages: FC<IProps> = ({
 };
 
 export default DragImages;
+
+function computedNextSourcesIndex(
+  clientX: number,
+  prevClientX: number,
+  currentSourceIndex: number,
+  sourcesLength: number
+) {
+  const nextIndex =
+    clientX > prevClientX ? currentSourceIndex - 1 : currentSourceIndex + 1;
+  const allowValue = nextIndex <= sourcesLength && nextIndex >= 0;
+
+  return allowValue ? nextIndex : nextIndex < 0 ? sourcesLength : 0;
+
+  // if (allowValue) {
+  //   return nextIndex;
+  // }
+  // if (nextIndex < 0) {
+  //   return sourcesLength;
+  // }
+  // return 0;
+}

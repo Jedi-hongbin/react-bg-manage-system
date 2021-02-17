@@ -35,8 +35,7 @@ const Emerald: FC<IProps> = (): ReactElement => {
 
   useEffect(() => {
     getSource();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getSource]);
 
   return (
     <DragImages
