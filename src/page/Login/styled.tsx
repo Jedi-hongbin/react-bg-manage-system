@@ -37,7 +37,7 @@ export const LoginContainer = styled.div`
   margin-left: auto;
   width: 350px;
   background-color: ${(props) =>
-    props.theme.mode === Mode.LIGHT ? light_bgc : dark_bgc};
+    props.theme.palette.type === Mode.LIGHT ? light_bgc : dark_bgc};
   height: 100%;
   padding: 1rem;
   ${Animated};
