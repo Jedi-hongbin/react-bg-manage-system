@@ -8,33 +8,31 @@ export const Wrapper = styled.div`
   width: 100vw;
   height: 100vh;
   background: url(${bgImage}) no-repeat center center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row-reverse;
 `;
 
 const DebutAnimation = keyframes`
-0% {
-  transform: translateX(100%);
-  filter: blur(10px);
-}
+  0% {
+    transform: translateX(350px);
+    filter: blur(10px);
+  }
 
-100% {
-  filter: blur(0px);
-  transform: translateX(0);
-}
+  100% {
+    filter: blur(0px);
+    transform: translateX(0);
+  }
 `;
 
 const Animated = css`
   animation: ${DebutAnimation} 0.4s linear;
 `;
+
 const light_bgc = "rgba(255, 255, 255, 0.6)";
 const dark_bgc = "rgba(0, 0, 0, 0.6)";
 
 export const LoginContainer = styled.div`
-  margin-left: auto;
   width: 350px;
   background-color: ${(props) =>
     props.theme.palette.type === Mode.LIGHT ? light_bgc : dark_bgc};
