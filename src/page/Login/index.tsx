@@ -13,27 +13,19 @@ import {
   Input,
 } from "./styled";
 import { log } from "../../utils/logger";
+import useUser, { User } from "./useUser";
 
 interface Props {}
 
 const Login: React.FC<Props> = (): React.ReactElement => {
   const { replace } = useHistory();
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState({ name: "", password: "" });
+  const [user, setUser] = useUser();
   const username = useRef<AntdInput>(null);
   const password = useRef<AntdInput>(null);
 
   const iconRender = useCallback(
     (visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />),
-    []
-  );
-
-  const handleChangeUser = useCallback(
-    (key: "name" | "password") => ({
-      currentTarget: { value },
-    }: React.ChangeEvent<HTMLInputElement>) => {
-      setUser((user) => ({ ...user, [key]: value }));
-    },
     []
   );
 
@@ -63,11 +55,11 @@ const Login: React.FC<Props> = (): React.ReactElement => {
         <MySpace direction="vertical">
           <Title>Login</Title>
           {/* <Input ref={username} /> */}
-          <Input value={user.name} onChange={handleChangeUser("name")} />
+          <Input value={user.name} onChange={setUser(User.name)} />
           {/* <PasswordInput ref={password} iconRender={iconRender} /> */}
           <PasswordInput
             value={user.password}
-            onChange={handleChangeUser("password")}
+            onChange={setUser(User.password)}
             iconRender={iconRender}
           />
           <LoginButton loading={loading} onClick={handleLogin} />
