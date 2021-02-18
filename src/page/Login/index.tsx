@@ -1,6 +1,5 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Input as AntdInput, notification } from "antd";
 import { useHistory } from "react-router-dom";
 import {
   LoginButton,
@@ -14,6 +13,7 @@ import {
 } from "./styled";
 import { log } from "../../utils/logger";
 import useUser, { User } from "./useUser";
+import { snackbar } from "../../components/UI/Snackbar";
 
 interface Props {}
 
@@ -21,42 +21,35 @@ const Login: React.FC<Props> = (): React.ReactElement => {
   const { replace } = useHistory();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useUser();
-  const username = useRef<AntdInput>(null);
-  const password = useRef<AntdInput>(null);
 
   const iconRender = useCallback(
     (visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />),
     []
   );
 
+  const handleHello = useCallback((name) => {
+    snackbar.current?.show();
+    snackbar.current?.message(`hello ${name}`);
+    snackbar.current?.setAutoHideDuration(2000);
+  }, []);
+
   const handleLogin = useCallback(() => {
     if (loading) return;
     setLoading(true);
-    const Username = username.current!.input.value;
-    const Password = password.current!.input.value;
-    log({
-      Username,
-      Password,
-    });
+    log(user);
     setTimeout(() => {
       setLoading(false);
-      notification.success({
-        message: `Hello ${Username}`,
-        description: "Login success!",
-        duration: 2,
-      });
+      handleHello(user.name);
       replace("dashboard");
-    }, 500);
-  }, [loading, replace]);
+    }, 1000);
+  }, [handleHello, loading, replace, user]);
 
   return (
     <Wrapper>
       <LoginContainer>
         <MySpace direction="vertical">
           <Title>Login</Title>
-          {/* <Input ref={username} /> */}
-          <Input value={user.name} onChange={setUser(User.name)} />
-          {/* <PasswordInput ref={password} iconRender={iconRender} /> */}
+          <Input autoFocus value={user.name} onChange={setUser(User.name)} />
           <PasswordInput
             value={user.password}
             onChange={setUser(User.password)}
@@ -69,4 +62,5 @@ const Login: React.FC<Props> = (): React.ReactElement => {
     </Wrapper>
   );
 };
+
 export default Login;

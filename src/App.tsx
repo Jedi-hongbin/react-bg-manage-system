@@ -16,6 +16,7 @@ import {
 import { useSelector } from "react-redux";
 import { Theme } from "./redux/types";
 import { ThemeProvider as MaterThemeProvider } from "@material-ui/core";
+import Snackbar from "./components/UI/Snackbar";
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -55,6 +56,7 @@ const App: React.FC = () => {
             <Redirect to="notfound" />
           </Switch>
         </Router>
+        <Snackbar />
       </MaterThemeProvider>
     </StyledThemeProvider>
   );
