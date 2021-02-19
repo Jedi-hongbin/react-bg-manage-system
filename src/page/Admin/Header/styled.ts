@@ -5,11 +5,13 @@ import {
   BrightnessHigh,
   Brightness4,
   Mail,
+  Fullscreen,
+  FullscreenExit,
 } from "@material-ui/icons";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 
-export const UserInfo = styled.div`
-  min-width: 10rem;
+export const RightRegion = styled.div`
+  min-width: 12rem;
   ${BetweenCenter}
 `;
 
@@ -39,5 +41,11 @@ export const LightIcon = styled(BrightnessHigh)`
   ${icon}
 `;
 export const DarkIcon = styled(Brightness4)`
+  ${icon}
+`;
+export const FullScreenIcon = styled(Fullscreen)`
+  ${icon}
+`;
+export const FullScreenExitIcon = styled(FullscreenExit)`
   ${icon}
 `;
