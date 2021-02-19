@@ -12,7 +12,7 @@ import {
   Input,
 } from "./styled";
 import { log } from "../../utils/logger";
-import useUser, { User } from "./useUser";
+import useUser, { USER } from "./useUser";
 import { snackbar } from "../../components/UI/Snackbar";
 
 interface Props {}
@@ -49,10 +49,16 @@ const Login: React.FC<Props> = (): React.ReactElement => {
       <LoginContainer>
         <MySpace direction="vertical">
           <Title>Login</Title>
-          <Input autoFocus value={user.name} onChange={setUser(User.name)} />
+          <Input
+            autoFocus
+            name={USER.name}
+            value={user.name}
+            onChange={setUser}
+          />
           <PasswordInput
+            name={USER.password}
             value={user.password}
-            onChange={setUser(User.password)}
+            onChange={setUser}
             iconRender={iconRender}
           />
           <LoginButton loading={loading} onClick={handleLogin} />

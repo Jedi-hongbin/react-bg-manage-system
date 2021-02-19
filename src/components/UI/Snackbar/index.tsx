@@ -1,12 +1,12 @@
 import React, { forwardRef, useImperativeHandle, useCallback } from "react";
 import {
-  Button,
   Snackbar as MaterialSnackbar,
   IconButton,
   Slide,
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
 import { TransitionProps } from "@material-ui/core/transitions";
+import { Button } from "../Button";
 
 function TransitionRight(props: TransitionProps) {
   return <Slide {...props} direction="left" />;
@@ -67,7 +67,7 @@ const Snackbar = forwardRef((_: any, ref: any) => {
       TransitionComponent={TransitionRight}
       action={
         <React.Fragment>
-          <Button color="secondary" size="small" onClick={handleClose}>
+          <Button color="primary" size="small" onClick={handleClose}>
             UNDO
           </Button>
           <IconButton

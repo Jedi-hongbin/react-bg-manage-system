@@ -1,24 +1,27 @@
 import { useState, useCallback } from "react";
 
-export enum User {
+export enum USER {
   name = "name",
   password = "password",
 }
 
 interface IUser {
-  name: string;
-  password: string;
+  [USER.name]: string;
+  [USER.password]: string;
 }
 
-type HandleChangeUser = (
-  key: User
-) => (e: React.ChangeEvent<HTMLInputElement>) => void;
+type HandleChangeUser = (e: React.ChangeEvent<HTMLInputElement>) => void;
+
+const initialUser = {
+  [USER.name]: "",
+  [USER.password]: "",
+};
 
 const useUser = (): [IUser, HandleChangeUser] => {
-  const [user, setUser] = useState<IUser>({ name: "", password: "" });
+  const [user, setUser] = useState<IUser>({ ...initialUser });
 
   const handleChangeUser: HandleChangeUser = useCallback(
-    (key) => ({ currentTarget: { value } }) => {
+    ({ currentTarget: { value, name: key } }) => {
       setUser((user) => ({ ...user, [key]: value }));
     },
     []
