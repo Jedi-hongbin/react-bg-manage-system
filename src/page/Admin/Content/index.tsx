@@ -4,7 +4,7 @@ import { Content as StyledContent } from "../../../constants/LayoutStyled";
 import { routes } from "../../../config/menuConfig";
 
 interface IProps {}
-
+console.log(process.env);
 const Content: FC<IProps> = (): ReactElement => {
   return (
     <StyledContent>

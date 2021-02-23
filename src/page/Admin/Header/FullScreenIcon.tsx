@@ -1,39 +1,33 @@
-import { FC, ReactElement, useState, useCallback } from "react";
+import { FC, ReactElement, useCallback } from "react";
 import { FullScreenIcon as FullScreen, FullScreenExitIcon } from "./styled";
+import useFullScreenAdaptive from "../../../hooks/useFullScreenAdaptive";
+import Tooltip from "../../../components/UI/Tooltip";
 
-interface IProps {}
+const FullScreenIcon: FC = (): ReactElement => {
+  const [
+    isFullscreen,
+    fullscreenName,
+    exitFullscreenName,
+  ] = useFullScreenAdaptive();
 
-const FullScreenIcon: FC<IProps> = (): ReactElement => {
-  const [fullScreen, setFullScreen] = useState(false);
+  const exitFullscreen = useCallback(() => {
+    //@ts-ignore
+    document[exitFullscreenName]();
+  }, [exitFullscreenName]);
 
-  const requestFullScreen = useCallback(() => {
-    var de: any = document.documentElement;
-    if (de.requestFullscreen) {
-      de.requestFullscreen();
-    } else if (de.mozRequestFullScreen) {
-      de.mozRequestFullScreen();
-    } else if (de.webkitRequestFullScreen) {
-      de.webkitRequestFullScreen();
-    }
-    setFullScreen(true);
-  }, []);
+  const fullscreen = useCallback(async () => {
+    //@ts-ignore
+    document.documentElement[fullscreenName]();
+  }, [fullscreenName]);
 
-  const requestExitFullScreen = useCallback(() => {
-    var de: any = document;
-    if (de.exitFullscreen) {
-      de.exitFullscreen();
-    } else if (de.mozCancelFullScreen) {
-      de.mozCancelFullScreen();
-    } else if (de.webkitCancelFullScreen) {
-      de.webkitCancelFullScreen();
-    }
-    setFullScreen(false);
-  }, []);
-
-  return fullScreen ? (
-    <FullScreenExitIcon onClick={requestExitFullScreen} />
-  ) : (
-    <FullScreen onClick={requestFullScreen} />
+  return (
+    <Tooltip title={isFullscreen ? "exit full screen" : "full screen"}>
+      {isFullscreen ? (
+        <FullScreenExitIcon onClick={exitFullscreen} />
+      ) : (
+        <FullScreen onClick={fullscreen} />
+      )}
+    </Tooltip>
   );
 };
 

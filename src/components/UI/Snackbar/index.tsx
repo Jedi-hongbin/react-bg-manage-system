@@ -19,6 +19,11 @@ export const snackbar: React.RefObject<{
   message: React.Dispatch<React.SetStateAction<string>>;
 }> = React.createRef();
 
+export function snackbarMessage(message: string) {
+  snackbar.current?.show();
+  snackbar.current?.message(message);
+}
+
 const Snackbar = forwardRef((_: any, ref: any) => {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState("");

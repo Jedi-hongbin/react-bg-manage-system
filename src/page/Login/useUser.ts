@@ -5,7 +5,7 @@ export enum USER {
   password = "password",
 }
 
-interface IUser {
+export interface IUser {
   [USER.name]: string;
   [USER.password]: string;
 }

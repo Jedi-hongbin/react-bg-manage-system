@@ -11,9 +11,9 @@ import {
   Wrapper,
   Input,
 } from "./styled";
-import { log } from "../../utils/logger";
 import useUser, { USER } from "./useUser";
 import { snackbar } from "../../components/UI/Snackbar";
+import { login } from "../../server/authService";
 
 interface Props {}
 
@@ -36,7 +36,7 @@ const Login: React.FC<Props> = (): React.ReactElement => {
   const handleLogin = useCallback(() => {
     if (loading) return;
     setLoading(true);
-    log(user);
+    login(user);
     setTimeout(() => {
       setLoading(false);
       handleHello(user.name);
