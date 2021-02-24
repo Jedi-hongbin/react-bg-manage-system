@@ -3,7 +3,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { IRoute } from "../type";
 import "./TransitionDrop.css";
-import { withGuardRoute } from "../Route/GuardRoute/index";
+import { withProtectedRoute } from "../components/common/ProtectedRoute";
 
 interface TransitionRouteProps {
   routes: Array<IRoute>;
@@ -14,7 +14,7 @@ const renderRoute = ({ path, Component, exact, public: isPublic }: IRoute) => (
     key={path}
     exact={exact}
     path={path}
-    component={isPublic ? Component : withGuardRoute(Component)}
+    component={isPublic ? Component : withProtectedRoute(Component)}
   />
 );
 

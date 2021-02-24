@@ -1,6 +1,6 @@
 import { FC, ReactElement } from "react";
 import { Route, Redirect } from "react-router-dom";
-import { getUserTokenStorage } from "../utils/storage";
+import { getCurrentUser } from "../server/authService";
 import { IRoute } from "../type";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 const FrontendAuth: FC<Props> = ({ routerConfig, location }): ReactElement => {
   const { pathname } = location;
-  const isLogin = getUserTokenStorage();
+  const isLogin = getCurrentUser();
 
   const targetRouterConfig: any = routerConfig.find(
     (item: IRoute) => item.path.replace(/\s*/g, "") === pathname

@@ -2,12 +2,13 @@ import { ReactElement } from "react";
 import { Redirect } from "react-router-dom";
 import { getCurrentUser } from "../../../server/authService";
 
-type TWithGuardRoute = (props: any) => () => ReactElement;
+type TProtectedRoute = (props: any) => () => ReactElement;
 
-export const withGuardRoute: TWithGuardRoute = (Component) => () => {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export const withProtectedRoute: TProtectedRoute = (Component) => () => {
   const token = getCurrentUser();
-  console.log("token", token, Component);
+
+  console.log("token", token);
+
   if (!token) {
     return <Redirect to="/login" />;
   }

@@ -12,12 +12,10 @@ import {
   Input,
 } from "./styled";
 import useUser, { USER } from "./useUser";
-import { snackbar } from "../../components/UI/Snackbar";
-import { login } from "../../server/authService";
+import { snackbarMessage } from "../../components/UI/Snackbar";
+import { logIn } from "../../server/authService";
 
-interface Props {}
-
-const Login: React.FC<Props> = (): React.ReactElement => {
+const Login: React.FC = (): React.ReactElement => {
   const { replace } = useHistory();
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useUser();
@@ -28,20 +26,16 @@ const Login: React.FC<Props> = (): React.ReactElement => {
   );
 
   const handleHello = useCallback((name) => {
-    snackbar.current?.show();
-    snackbar.current?.message(`hello ${name}`);
-    snackbar.current?.setAutoHideDuration(2000);
+    snackbarMessage(`hello ${name}`);
   }, []);
 
   const handleLogin = useCallback(() => {
     if (loading) return;
     setLoading(true);
-    login(user);
-    setTimeout(() => {
-      setLoading(false);
-      handleHello(user.name);
-      replace("dashboard");
-    }, 1000);
+    logIn(user);
+    setLoading(false);
+    handleHello(user.name);
+    replace("/");
   }, [handleHello, loading, replace, user]);
 
   return (

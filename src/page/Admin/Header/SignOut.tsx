@@ -2,15 +2,18 @@ import { FC, ReactElement, useCallback } from "react";
 import Tooltip from "../../../components/UI/Tooltip";
 import { SignOutIcon } from "./styled";
 import { useHistory } from "react-router-dom";
-// import { clearUserTokenStorage } from "../../../utils/storage";
+import { signOut as authSignOut } from "../../../server/authService";
 
 const SignOut: FC = (): ReactElement => {
-  const { replace } = useHistory();
+  const {
+    replace,
+    location: { pathname },
+  } = useHistory();
 
   const signOut = useCallback(() => {
-    // clearUserTokenStorage();
-    replace("/login");
-  }, [replace]);
+    authSignOut();
+    replace(pathname);
+  }, [pathname, replace]);
 
   return (
     <Tooltip title="sign out">
