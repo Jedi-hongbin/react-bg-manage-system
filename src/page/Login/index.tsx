@@ -11,12 +11,16 @@ import {
   Wrapper,
   Input,
 } from "./styled";
-import useUser, { USER } from "./useUser";
+import useUser, { USER } from "../../hooks/useUser";
 import { snackbarMessage } from "../../components/UI/Snackbar";
 import { logIn } from "../../server/authService";
 
 const Login: React.FC = (): React.ReactElement => {
-  const { replace } = useHistory();
+  const {
+    replace,
+    location: { state },
+  } = useHistory();
+
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useUser();
 
@@ -35,8 +39,10 @@ const Login: React.FC = (): React.ReactElement => {
     logIn(user);
     setLoading(false);
     handleHello(user.name);
-    replace("/");
-  }, [handleHello, loading, replace, user]);
+    // @ts-ignore
+    const replacePath = state?.from?.pathname ?? "/";
+    replace(replacePath);
+  }, [handleHello, loading, replace, user, state]);
 
   return (
     <Wrapper>

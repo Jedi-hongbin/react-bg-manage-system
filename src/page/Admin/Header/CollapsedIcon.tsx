@@ -25,4 +25,5 @@ const CollapsedIcon: React.FC<CollapsedIconProps> = ({
 
   return <Tooltip title={title}>{MenuIcon}</Tooltip>;
 };
+
 export default CollapsedIcon;

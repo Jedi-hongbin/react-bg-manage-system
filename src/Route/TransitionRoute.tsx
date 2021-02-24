@@ -3,20 +3,32 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Redirect, Route, Switch, useLocation } from "react-router-dom";
 import { IRoute } from "../type";
 import "./TransitionDrop.css";
-import { withProtectedRoute } from "../components/common/ProtectedRoute";
+import {
+  withProtectedRoute,
+  ProtectedRoute,
+} from "../components/common/ProtectedRoute";
 
 interface TransitionRouteProps {
   routes: Array<IRoute>;
 }
 
-const renderRoute = ({ path, Component, exact, public: isPublic }: IRoute) => (
-  <Route
-    key={path}
-    exact={exact}
-    path={path}
-    component={isPublic ? Component : withProtectedRoute(Component)}
-  />
-);
+const renderRoute = ({ path, Component, exact, public: isPublic }: IRoute) =>
+  isPublic ? (
+    <Route
+      key={path}
+      exact={exact}
+      path={path}
+      component={Component}
+      // component={isPublic ? Component : withProtectedRoute(Component)}
+    />
+  ) : (
+    <ProtectedRoute
+      key={path}
+      exact={exact}
+      path={path}
+      component={Component}
+    />
+  );
 
 const TransitionRoute: React.FC<TransitionRouteProps> = ({ routes }): any => {
   const location = useLocation();

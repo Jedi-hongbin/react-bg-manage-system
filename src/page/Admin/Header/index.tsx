@@ -7,6 +7,7 @@ import { Header as StyledHeader } from "../../../constants/LayoutStyled";
 import ThemeToggle from "./ThemeToggle";
 import Avatar from "./Avatar";
 import FullScreenIcon from "./FullScreenIcon";
+import { useUserInfo } from "../../../server/userAuthContext";
 
 interface Props {
   collapsed: boolean;
@@ -14,6 +15,8 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ collapsed, toggleCollapsed }) => {
+  const [user] = useUserInfo();
+
   return (
     <StyledHeader>
       <CollapsedIcon collapsed={collapsed} toggleCollapsed={toggleCollapsed} />
@@ -22,7 +25,7 @@ const Header: React.FC<Props> = ({ collapsed, toggleCollapsed }) => {
         <Notification />
         <ThemeToggle />
         <SignOut />
-        <Avatar />
+        <Avatar username={user?.name} />
       </RightRegion>
     </StyledHeader>
   );
