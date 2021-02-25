@@ -1,8 +1,23 @@
-import React, { FC, ReactElement } from "react";
+import { FC, ReactElement } from "react";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
 interface IProps {}
 
 const NotFound: FC<IProps> = (): ReactElement => {
-  return <div>Not Found</div>;
+  const [a, setA] = useLocalStorage("a", "not have jwt!");
+
+  return (
+    <div>
+      <div>Not Found</div>
+      <p>{a}</p>
+      <button
+        onClick={() => {
+          setA((prev: string) => prev + "123");
+        }}
+      >
+        setA
+      </button>
+    </div>
+  );
 };
 export default NotFound;

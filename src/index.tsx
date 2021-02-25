@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./redux";
+import UserAuthContext, { UserAuth } from "./server/userAuthContext";
+import { getCurrentUser } from "./server/authService";
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
-);
+const Root = () => {
+  const user = useState<UserAuth | null>(getCurrentUser());
+
+  return (
+    <Provider store={store}>
+      <UserAuthContext.Provider value={user}>
+        <App />
+      </UserAuthContext.Provider>
+    </Provider>
+  );
+};
+
+ReactDOM.render(<Root />, document.getElementById("root"));
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

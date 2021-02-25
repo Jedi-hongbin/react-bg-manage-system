@@ -1,6 +1,5 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
-import { Input as AntdInput, notification } from "antd";
 import { useHistory } from "react-router-dom";
 import {
   LoginButton,
@@ -12,48 +11,56 @@ import {
   Wrapper,
   Input,
 } from "./styled";
-import { log } from "../../utils/logger";
+import useUser, { USER } from "../../hooks/useUser";
+import { snackbarMessage } from "../../components/UI/Snackbar";
+import { logIn } from "../../server/authService";
 
-interface Props {}
+const Login: React.FC = (): React.ReactElement => {
+  const {
+    replace,
+    location: { state },
+  } = useHistory();
 
-const Login: React.FC<Props> = (): React.ReactElement => {
-  const { replace } = useHistory();
   const [loading, setLoading] = useState(false);
-  const username = useRef<AntdInput>(null);
-  const password = useRef<AntdInput>(null);
+  const [user, setUser] = useUser();
 
   const iconRender = useCallback(
     (visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />),
     []
   );
 
+  const handleHello = useCallback((name) => {
+    snackbarMessage(`hello ${name}`);
+  }, []);
+
   const handleLogin = useCallback(() => {
     if (loading) return;
     setLoading(true);
-    const Username = username.current!.input.value;
-    const Password = password.current!.input.value;
-    log({
-      Username,
-      Password,
-    });
-    setTimeout(() => {
-      setLoading(false);
-      notification.success({
-        message: `Hello ${Username}`,
-        description: "Login success!",
-        duration: 2,
-      });
-      replace("dashboard");
-    }, 500);
-  }, [loading, replace]);
+    logIn(user);
+    setLoading(false);
+    handleHello(user.name);
+    // @ts-ignore
+    const replacePath = state?.from?.pathname ?? "/";
+    replace(replacePath);
+  }, [handleHello, loading, replace, user, state]);
 
   return (
     <Wrapper>
       <LoginContainer>
         <MySpace direction="vertical">
           <Title>Login</Title>
-          <Input ref={username} />
-          <PasswordInput ref={password} iconRender={iconRender} />
+          <Input
+            autoFocus
+            name={USER.name}
+            value={user.name}
+            onChange={setUser}
+          />
+          <PasswordInput
+            name={USER.password}
+            value={user.password}
+            onChange={setUser}
+            iconRender={iconRender}
+          />
           <LoginButton loading={loading} onClick={handleLogin} />
           <RegisterButton />
         </MySpace>
@@ -61,4 +68,5 @@ const Login: React.FC<Props> = (): React.ReactElement => {
     </Wrapper>
   );
 };
+
 export default Login;

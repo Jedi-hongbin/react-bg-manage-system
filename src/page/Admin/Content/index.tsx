@@ -3,9 +3,7 @@ import TransitionRoute from "../../../Route/TransitionRoute";
 import { Content as StyledContent } from "../../../constants/LayoutStyled";
 import { routes } from "../../../config/menuConfig";
 
-interface IProps {}
-
-const Content: FC<IProps> = (): ReactElement => {
+const Content: FC = (): ReactElement => {
   return (
     <StyledContent>
       <TransitionRoute routes={routes} />

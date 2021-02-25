@@ -18,6 +18,7 @@ export interface MenuConfig {
   public?: boolean;
   role?: Array<IRole>;
   children?: Array<MenuConfig>;
+  redirect?: string;
 }
 
 export enum IconList {
@@ -81,10 +82,10 @@ const menuList: Array<MenuConfig> = [
 export default menuList;
 
 export const routes: Array<IRoute> = [
-  { path: "/todoList", Component: TodoList },
-  { path: "/role", Component: Role },
-  { path: "/dashboard", Component: Dashboard },
-  { path: "/palette", Component: Palette },
-  { path: "/study/copy", Component: Copy },
-  { path: "/study/360", Component: ImageVideo },
+  { path: "/todoList", Component: TodoList, public: true },
+  { path: "/role", Component: Role, public: false },
+  { path: "/dashboard", Component: Dashboard, public: true },
+  { path: "/palette", Component: Palette, public: true },
+  { path: "/study/copy", Component: Copy, public: true },
+  { path: "/study/360", Component: ImageVideo, public: true },
 ];
